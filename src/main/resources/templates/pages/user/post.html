@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="imagetoolbar" content="no">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="format-detection" content="telephone=no">
+  <meta name="title" content="지도위의 스토리">
+  <meta name="description" content="지도위에 자신만의 스토리를 남겨보세요!">
+  <meta name="keywords" content="지도,스토리,갤러리">
+  <meta property="og:title" content="지도위의 스토리">
+  <meta property="og:description" content="지도위에 자신만의 스토리를 남겨보세요!">
+  <meta property="og:image" content="https://drive.google.com/thumbnail?id=1bHpAQGFz9WTw6LW5U8TCVgew1M9hqYsK&sz=w1080">
+  <meta property="og:url" content="https://웹사이트">
+  <title>글쓰기 페이지 | web갤러리</title>
+
+  <link rel="stylesheet" th:href="@{/css/setting.css}">
+  <link rel="stylesheet" th:href="@{/css/plugin.css}" >
+  <link rel="stylesheet" th:href="@{/css/template.css}">
+  <link rel="stylesheet" th:href="@{/css/common.css}">
+  <link rel="stylesheet" th:href="@{/css/style.css}">
+  <!-- [E]personal-xBLttXK2ZR -->
+  <script defer th:src="@{/js/setting.js}"></script>
+  <script defer th:src="@{/js/plugin.js}"></script>
+  <script defer th:src="@{/js/template.js}"></script>
+  <script defer th:src="@{/js/common.js}"></script>
+  <script defer th:src="@{/js/script.js}"></script>
+</head>
+
+<body>
+  <!-- [S]personal-CnLTtXi9Ke -->
+  <div class="personal-CnLTtXi9Ke" data-bid="AtltU0a3bS" id="1">
+    <div class="header-inner">
+      <div class="header-container container-lg">
+        <h1 class="header-title">
+          <a href="javascript:void(0)">
+            <img th:src="@{/medias/eb6c144c41554aaeb51944c04bdfcd45.png}" alt="" class="">
+          </a>
+        </h1>
+        <div class="header-right">
+          <div class="header-title header-mobile-top">
+            <a href="javascript:void(0)">
+              <img th:src="@{/medias/eb6c144c41554aaeb51944c04bdfcd45.png}" alt="">
+            </a>
+          </div>
+          <ul class="header-gnblist">
+            <li class="header-gnbitem">
+              <a class="header-gnblink" th:href="@{/user/home}">
+                <span>스토리 홈</span>
+              </a>
+            </li>
+            <li class="header-gnbitem">
+              <a class="header-gnblink">
+                <span>스토리 갤러리</span>
+              </a>
+            </li>
+            <li class="header-gnbitem">
+              <a class="header-gnblink" th:href="@{/user/map}">
+                <span>스토리 지도</span>
+              </a>
+            </li>
+            <li class="header-gnbitem">
+              <a class="header-gnblink" th:href="@{/forum}">
+                <span>스토리 게시판</span>
+              </a>
+            </li>
+            <li class="header-gnbitem">
+              <a class="header-gnblink" th:href="@{/user/log-out}" onclick="return confirm('로그아웃하시겠습니까?')">
+                <span>로그아웃</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div class="header-utils">
+          <button class="btn-momenu">
+            <img th:src="@{/icons/ico_menu_black.svg}" alt="모바일메뉴 아이콘">
+          </button>
+          <button class="btn-close">
+            <img th:src="@{/icons/ico_close_black.svg}" alt="닫기 아이콘">
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="header-dim"></div>
+  </div>
+  <!-- [E]personal-CnLTtXi9Ke -->
+  <main class="th-layout-main ">
+    <!-- [S]basic-N24 -->
+    <div class="basic-N24" data-bid="xwLtu0B22V" id="2">
+      <div class="contents-inner">
+        <div class="contents-container container-md">
+          <form action="#" method="post"  class="form-group">
+            <div class="textset">
+              <h2 class="textset-tit">글쓰기</h2>
+            </div>
+            <div class="inputset inputset-lg inputset-label">
+              <label>
+              </label>
+            </div>
+            <div class="inputset inputset-lg inputset-label">
+              <label>
+                <h6 class="inputset-tit">제목</h6>
+                <input type="text" class="inputset-input form-control" placeholder="제목을 입력해주세요." aria-label="내용" required="">
+              </label>
+            </div>
+            <div class="inputset inputset-lg inputset-label">
+              <label>
+                <h6 class="inputset-tit">내용 <a href="javascript:void(0)">
+                    <div class="img-upload">
+                      <small>이미지 업로드 : </small>
+                      <img class="icon-lg" th:src="@{/medias/icons/iconsax-bold/document-upload.svg}" alt="">
+                    </div>
+                  </a>
+                </h6>
+                <textarea class="inputset-textarea textarea-keyup form-control" placeholder="내용을 입력해주세요." required=""></textarea>
+                <div class="inputset-langth">
+                  <span class="inputset-count">0</span>
+                  <span class="inputset-total">/4000</span>
+                </div>
+              </label>
+            </div>
+            <div class="form-btn">
+              <button class="btnset" type="button">제출하기</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <!-- [E]basic-N24 -->
+  </main>
+  <!-- [S]personal-xBLttXK2ZR -->
+  <div class="personal-xBLttXK2ZR" id="" data-bid="aKlTu0a1OG">
+    <div class="footer-container container-lg">
+      <div class="footer-top">
+        <h1 class="footer-logo">
+          <a href="javascript:void(0)">
+          </a>
+        </h1>
+        <ul class="footer-menulist">
+          <li class="footer-menuitem">
+            <a href="javascript:void(0)">
+              <span>지도위의 스토리</span>
+            </a>
+          </li>
+          <li class="footer-menuitem">
+            <a href="javascript:void(0)">
+              <span>개인정보처리방침</span>
+            </a>
+          </li>
+          <li class="footer-menuitem">
+          </li>
+          <li class="footer-menuitem">
+          </li>
+        </ul>
+        <ul class="footer-snslist">
+          <li class="footer-snsitem">
+          </li>
+          <li class="footer-snsitem">
+          </li>
+          <li class="footer-snsitem">
+          </li>
+          <li class="footer-snsitem">
+            <a class="footer-snslink" href="javascript:void(0)">
+            </a>
+          </li>
+        </ul>
+      </div>
+      <div class="footer-bottom">
+        <div class="footer-txt">
+          <p>Concho 서울, 성남 근무 가능</p>
+          <p>
+            <span>T. 추가 예정</span>
+            <span>E. 추가 예정.</span>
+          </p>
+        </div>
+        <div class="footer-txt">
+          <p>2024 MADE BY Concho</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</body>

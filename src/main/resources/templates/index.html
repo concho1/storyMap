@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>web갤러리</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&amp;display=swap">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.min.css">
+  <style>
+    body {
+      font-family: "Noto Sans KR", sans-serif;
+      font-size: 14px;
+      font-weight: 400;
+      color: #111111;
+      background-color: #FAFAFA;
+    }
+
+    .container {
+      position: relative;
+      max-width: 1280px;
+      margin: 0 auto;
+    }
+
+    .header {
+      display: flex;
+      align-items: center;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 80px;
+      padding: 0 60px;
+      background-color: #ffffff;
+      border-bottom: 1px solid #E9E7E7;
+    }
+
+    .header h1 {
+      display: flex;
+      align-items: center;
+    }
+
+    .header h1 strong {
+      font-size: 20px;
+      font-weight: 700;
+      margin-left: 16px;
+    }
+
+    .header h1 small {
+      font-size: 16px;
+      font-weight: 400;
+      margin-left: 4px;
+    }
+
+    .main {
+      padding-top: 140px;
+    }
+
+    .main table {
+      width: 100%;
+      background-color: #ffffff;
+    }
+
+    .main table th,
+    .main table td {
+      vertical-align: middle;
+    }
+
+    .main table thead th {
+      padding: 12px 16px;
+      font-size: 16px;
+      font-weight: 500;
+      border-top: 2px solid #D91F29;
+      background-color: #F1F1F5;
+      text-align: left;
+    }
+
+    .main table tbody td {
+      padding: 10px 16px;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .main table tbody td a {
+      color: #0176F9;
+    }
+
+    .main table tbody td span {
+      display: inline-block;
+      padding: 4px 10px;
+      border-radius: 14px;
+    }
+
+    .main table tbody td span.before {
+      background-color: #F8DEE0;
+    }
+
+    .main table tbody td span.ongoing {
+      background-color: #D9ECF9;
+    }
+
+    .main table tbody td span.after {
+      background-color: #D2F5D9;
+    }
+
+    .main table tbody tr:hover td {
+      background-color: #F1F1F1;
+    }
+
+    .footer {
+      display: flex;
+      align-items: center;
+      margin-top: 60px;
+      height: 60px;
+    }
+
+    .footer span {
+      display: inline-block;
+      color: #767676;
+    }
+
+    .footer strong {
+      display: inline-block;
+      margin-left: 8px;
+      font-weight: 400;
+    }
+  </style>
+</head>
+
+<body>
+  <a th:href="@{/home}"><span>home</span></a>
+  <div class="container">
+    <header class="header">
+      <h1>
+        <strong>web갤러리</strong>
+        <small>페이지 리스트</small>
+      </h1>
+    </header>
+    <main class="main">
+      <table>
+        <colgroup>
+          <col style="width: 30%">
+          <col style="width: 30%">
+          <col style="width: 20%">
+          <col>
+        </colgroup>
+        <thead>
+          <tr>
+            <th scope="col">제목</th>
+            <th scope="col">링크</th>
+            <th scope="col">상태</th>
+            <th scope="col">메모</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>지도위의 스토리 홈</td>
+            <td><a th:href="@{/home}" target="_blank">home.html</a></td>
+            <td><span class="after">완료</span></td>
+            <td>지도위의 스토리 홈 페이지</td>
+          </tr>
+          <tr>
+            <td>지도위의 스토리 게시판</td>
+            <td><a th:href="@{/forum}" target="_blank">forum.html</a></td>
+            <td><span class="after">완료</span></td>
+            <td>지도위의 스토리 게시판입니다</td>
+          </tr>
+          <tr>
+            <td>글쓰기 페이지</td>
+            <td><a th:href="@{/user/post}" target="_blank">user_post.html</a></td>
+            <td><span class="after">완료</span></td>
+            <td>글쓰기 페이지입니다</td>
+          </tr>
+          <tr>
+            <td>스토리 지도</td>
+            <td><a th:href="@{/user/map}" target="_blank">map.html</a></td>
+            <td><span class="after">완료</span></td>
+            <td>스토리 지도입니다</td>
+          </tr>
+          <tr>
+            <td>회원가입 페이지</td>
+            <td><a th:href="@{/user/sign-up-form}" target="_blank">signIn.html</a></td>
+            <td><span class="after">완료</span></td>
+            <td>회원가입 페이지입니다</td>
+          </tr>
+          <tr>
+            <td>로그인 페이지</td>
+            <td><a th:href="@{/user/log-in-form}" target="_blank">logIn.html</a></td>
+            <td><span class="after">완료</span></td>
+            <td>로그인 페이지입니다</td>
+          </tr>
+          <tr>
+            <td>user 홈 페이지</td>
+            <td><a th:href="@{/user/home}" target="_blank">userHome.html</a></td>
+            <td><span class="after">완료</span></td>
+            <td>user 홈 페이지입니다</td>
+          </tr>
+          <tr>
+            <td>user 게시판 업로드</td>
+            <td><a th:href="@{/user/forumUpload}" target="_blank">userHome.html</a></td>
+            <td><span class="after">완료</span></td>
+            <td>user 게시판 업로드 페이지입니다</td>
+          </tr>
+        </tbody>
+      </table>
+    </main>
+    <footer class="footer">
+      <span>2024. 3. 17.</span>
+      <strong>web갤러리</strong>
+    </footer>
+  </div>
+</body>

@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="imagetoolbar" content="no">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="format-detection" content="telephone=no">
+  <meta name="title" content="지도위의 스토리">
+  <meta name="description" content="지도위에 자신만의 스토리를 남겨보세요!">
+  <meta name="keywords" content="지도,스토리,갤러리">
+  <meta property="og:title" content="지도위의 스토리">
+  <meta property="og:description" content="지도위에 자신만의 스토리를 남겨보세요!">
+  <meta property="og:image" content="https://drive.google.com/thumbnail?id=1bHpAQGFz9WTw6LW5U8TCVgew1M9hqYsK&sz=w1080">
+  <meta property="og:url" content="https://웹사이트">
+  <title>회원가입 페이지 | web갤러리</title>
+  <script th:inline="javascript">
+    /*<![CDATA[*/
+    var message = /*[[${message}]]*/ null;
+    if (message) {
+      alert(message);
+    }
+    /*]]>*/
+  </script>
+  <link rel="stylesheet" th:href="@{/css/setting.css}">
+  <link rel="stylesheet" th:href="@{/css/plugin.css}" >
+  <link rel="stylesheet" th:href="@{/css/template.css}">
+  <link rel="stylesheet" th:href="@{/css/common.css}">
+  <link rel="stylesheet" th:href="@{/css/style.css}">
+  <!-- [E]personal-zxltv4SP71 -->
+  <script defer th:src="@{/js/setting.js}"></script>
+  <script defer th:src="@{/js/plugin.js}"></script>
+  <script defer th:src="@{/js/template.js}"></script>
+  <script defer th:src="@{/js/common.js}"></script>
+  <script defer th:src="@{/js/script.js}"></script>
+  <script defer th:src="@{/jsMy/sign_in.js}"></script>
+</head>
+
+<body>
+  <!-- [S]personal-CyLtv4t579 -->
+  <div class="personal-CyLtv4t579" id="1" data-bid="XylTV6Xh62">
+    <div class="header-inner">
+      <div class="header-container container-lg">
+        <h1 class="header-title">
+          <a href="javascript:void(0)">
+            <img th:src="@{/medias/eb6c144c41554aaeb51944c04bdfcd45.png}" alt="" class="">
+          </a>
+        </h1>
+        <div class="header-right">
+          <div class="header-title header-mobile-top">
+            <a href="javascript:void(0)">
+              <img th:src="@{/medias/eb6c144c41554aaeb51944c04bdfcd45.png}" alt="">
+            </a>
+          </div>
+          <ul class="header-gnblist">
+            <li class="header-gnbitem">
+              <a class="header-gnblink" th:href="@{/home}">
+                <span>스토리 홈</span>
+              </a>
+            </li>
+            <li class="header-gnbitem">
+              <a class="header-gnblink" th:href="@{/forum}">
+                <span>스토리 게시판</span>
+              </a>
+            </li>
+            <li class="header-gnbitem">
+              <a class="header-gnblink" th:href="@{/user/log-in-form}">
+                <span>로그인</span>
+              </a>
+            </li>
+            <li class="header-gnbitem">
+              <a class="header-gnblink" th:href="@{/user/sign-up-form}">
+                <span>회원가입</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div class="header-utils">
+          <button class="btn-momenu">
+            <img th:src="@{/icons/ico_menu_black.svg}" alt="모바일메뉴 아이콘">
+          </button>
+          <button class="btn-close">
+            <img th:src="@{/icons/ico_close_black.svg}" alt="닫기 아이콘">
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="header-dim"></div>
+  </div>
+  <!-- [E]personal-CyLtv4t579 -->
+  <main class="th-layout-main ">
+    <!-- [S]basic-N37 -->
+    <div class="basic-N37" data-bid="zYlTV6XyWQ">
+      <div class="contents-inner">
+        <div class="contents-container container-md">
+          <div class="imageset">
+            <img class="imageset-img" th:src="@{https://images.pexels.com/photos/20446158/pexels-photo-20446158.jpeg}" alt="">
+          </div>
+          <form action="#" th:action="@{/user/sign-up}" method="post" th:object="${user}" class="form-group form-line">
+            <div class="inputset inputset-line inputset-lg inputset-label">
+              <label>
+                <span class="inputset-tit">아이디(E-mail)
+                  <!-- event -->
+                  <a id="id_check" href="#">
+                    <span>*</span>
+                    <small>아이디 중복확인</small>
+                    <span>*</span>
+                  </a>
+                </span>
+                <input id="email_input" th:field="*{email}" type="text"  class="inputset-input form-control" placeholder="이메일을 입력해주세요." aria-label="내용" required="">
+              </label>
+            </div>
+            <div class="inputset inputset-line inputset-lg inputset-label">
+              <label>
+                <span class="inputset-tit">비밀번호<span>*</span>
+                </span>
+                <input th:field="*{pw}" name="password_input" type="password"  class="inputset-input form-control" placeholder="5자리 이상 20자리 이하" aria-label="내용" required="">
+              </label>
+            </div>
+            <div class="inputset inputset-line inputset-lg inputset-label">
+              <label>
+                <span class="inputset-tit">닉네임<span>*</span>
+                </span>
+                <input th:field="*{nickname}" name="name_input" type="text" class="inputset-input form-control" placeholder="닉네임을 입력해주세요." aria-label="내용" required="">
+              </label>
+            </div>
+            <div class="inputset inputset-line inputset-lg inputset-label">
+              <label>
+                <span class="inputset-tit">이름<span>*</span>
+                </span>
+                <input th:field="*{name}" name="mick_name_input" type="text" class="inputset-input form-control" placeholder="이름을 입력해주세요." aria-label="내용" required="">
+              </label>
+            </div>
+            <div class="inputset inputset-line inputset-lg inputset-label">
+              <label>
+                <span class="inputset-tit">나이<span>*</span>
+                </span>
+                <input th:field="*{age}" name="mick_name_input" type="text" class="inputset-input form-control" placeholder="나이를 입력해주세요." aria-label="내용" required="">
+              </label>
+            </div>
+            <div class="contents-check">
+              <span class="form-tit" contenteditable="true">성별<span>*</span>
+              </span>
+              <div class="checkset-wrap">
+                <div class="checkset">
+                  <input type="radio" th:field="*{gender}" value="남" id="basic-N37-1" class="checkset-input input-fill" >
+                  <label class="checkset-label" for="basic-N37-1"></label>
+                  <span class="checkset-text">남</span>
+                </div>
+                <div class="checkset">
+                  <input type="radio" th:field="*{gender}" value="여" id="basic-N37-2" class="checkset-input input-fill" >
+                  <label class="checkset-label" for="basic-N37-2"></label>
+                  <span class="checkset-text">여</span>
+                </div>
+              </div>
+            </div>
+            <div class="contents-agree">
+              <div class="checkset">
+                <input id="basic-N37-3" class="checkset-input input-fill" type="checkbox" value="" checked="">
+                <label class="checkset-label" for="basic-N37-3"></label>
+                <span class="checkset-text">개인정보처리방침에 동의합니다.</span>
+              </div>
+              <a href="javascript:void(0);" class="btnset btnset-icon icon-right btnset-text">보기</a>
+            </div>
+            <div class="form-btn">
+              <button class="btnset" type="submit">회원가입</button>
+            </div>
+            <div class="social">
+              <a id="google" href="javascript:void(0);" class="btnset btnset-line btnset-round">구글 회원가입</a>
+              <a id="kakao" href="javascript:void(0);" class="btnset btnset-line btnset-round">카카오 회원가입</a>
+              <a id="naver" href="javascript:void(0);" class="btnset btnset-line btnset-round">네이버 회원가입</a>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <!-- [E]basic-N37 -->
+  </main>
+  <!-- [S]personal-zxltv4SP71 -->
+  <div class="personal-zxltv4SP71" id="" data-bid="qiltV6Xmur">
+    <div class="footer-container container-lg">
+      <div class="footer-top">
+        <h1 class="footer-logo">
+        </h1>
+        <ul class="footer-menulist">
+          <li class="footer-menuitem">
+            <a href="javascript:void(0)">
+              <span>지도위의 스토리</span>
+            </a>
+          </li>
+          <li class="footer-menuitem">
+            <a href="javascript:void(0)">
+              <span>개인정보처리방침</span>
+            </a>
+          </li>
+          <li class="footer-menuitem">
+          </li>
+          <li class="footer-menuitem">
+          </li>
+        </ul>
+        <ul class="footer-snslist">
+          <li class="footer-snsitem">
+          </li>
+          <li class="footer-snsitem">
+          </li>
+          <li class="footer-snsitem">
+          </li>
+          <li class="footer-snsitem">
+            <a class="footer-snslink" href="javascript:void(0)">
+            </a>
+          </li>
+        </ul>
+      </div>
+      <div class="footer-bottom">
+        <div class="footer-txt">
+          <p>Concho 서울, 성남 근무 가능</p>
+          <p>
+            <span>T. 추가 예정</span>
+            <span>E. 추가 예정.</span>
+          </p>
+        </div>
+        <div class="footer-txt">
+          <p>2024 MADE BY Concho</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>

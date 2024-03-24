@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="refresh" content="no">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="format-detection" content="telephone=no">
+  <meta name="title" content="지도위의 스토리">
+  <meta name="description" content="지도위에 자신만의 스토리를 남겨보세요!">
+  <meta name="keywords" content="지도,스토리,갤러리">
+  <meta property="og:title" content="지도위의 스토리">
+  <meta property="og:description" content="지도위에 자신만의 스토리를 남겨보세요!">
+  <meta property="og:image" content="https://drive.google.com/thumbnail?id=1bHpAQGFz9WTw6LW5U8TCVgew1M9hqYsK&sz=w1080">
+  <meta property="og:url" content="https://웹사이트">
+  <title>스토리 지도 | web갤러리</title>
+  <script
+          src="https://code.jquery.com/jquery-3.7.1.js"
+          integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
+          crossorigin="anonymous">
+  </script>
+  <script th:inline="javascript">
+    // 서버에서 넣어준 문자열 형태의 js 코드 로드
+    let func = new Function(/*[[${proxyMapJs}]]*/);
+    func();
+  </script>
+  <link rel="stylesheet" th:href="@{/css/setting.css}">
+  <link rel="stylesheet" th:href="@{/css/plugin.css}" >
+  <link rel="stylesheet" th:href="@{/css/template.css}">
+  <link rel="stylesheet" th:href="@{/css/common.css}">
+  <link rel="stylesheet" th:href="@{/css/style.css}">
+  <!-- 여기에 JavaScript 코드를 동적으로 포함시킵니다. -->
+  <script defer th:src="@{/js/setting.js}"></script>
+  <script defer th:src="@{/js/plugin.js}"></script>
+  <script defer th:src="@{/js/template.js}"></script>
+  <script defer th:src="@{/js/common.js}"></script>
+  <script defer th:src="@{/js/script.js}"></script>
+  <script defer th:src="@{/jsMy/imgUpLoad.js}"></script>
+  <style>
+    @media (max-width: 992px) {
+      #uploadProgress{
+        width: 60vw;
+      }
+      #fileInput{
+        width: 73px;
+      }
+    }
+    .upload-container{
+      width: max-content;
+    }
+    #fileInput{
+      width: 16.3vw;
+    }
+    #uploadProgress {
+      padding-top: 15px;
+      -webkit-appearance: none; /* 기본 스타일 제거 */
+      appearance: none;
+      width: 30vw; /* 너비 설정 */
+      height: 4vh; /* 높이 설정 */
+      border: none; /* 테두리 제거 */
+    }
+
+    #uploadProgress::-webkit-progress-bar {
+      background-color: #ddd; /* 배경 색상 */
+      border-radius: 5px; /* 테두리 둥글게 */
+    }
+
+    #uploadProgress::-webkit-progress-value {
+      background-color: #a7c2ff; /* 진행 바 색상 */
+      border-radius: 5px; /* 테두리 둥글게 */
+    }
+
+    #uploadProgress::-moz-progress-bar {
+      background-color: #4CAF50; /* 파이어폭스용 진행 바 색상 */
+      border-radius: 5px; /* 테두리 둥글게 */
+    }
+
+  </style>
+</head>
+
+<body>
+  <!-- [S]personal-NxLtV5diGU -->
+  <div class="personal-NxLtV5diGU" id="1" data-bid="tElTV5erEp">
+    <div class="header-inner">
+      <div class="header-container container-lg">
+        <div class="header-title">
+          <a href="javascript:void(0)">
+            <img th:src="@{/medias/eb6c144c41554aaeb51944c04bdfcd45.png}" alt="" class="">
+          </a>
+        </div>
+        <!-- 파일 업로드 부분 -->
+        <div class="upload-container">
+          <input type="file" id="fileInput" multiple>
+          <progress id="uploadProgress" value="0" max="100"></progress>
+          <button id="uploadButton">
+            <img class="icon-lg" th:src="@{/medias/icons/iconsax-bold/document-upload.svg}" alt="">
+          </button>
+
+        </div>
+
+        <div class="header-right">
+          <div class="header-title header-mobile-top">
+            <a href="javascript:void(0)">
+              <img th:src="@{/medias/eb6c144c41554aaeb51944c04bdfcd45.png}" alt="">
+            </a>
+          </div>
+          <ul class="header-gnblist">
+            <li class="header-gnbitem">
+              <a class="header-gnblink" th:href="@{/user/home}">
+                <span>스토리 홈</span>
+              </a>
+            </li>
+
+            <li class="header-gnbitem">
+              <a class="header-gnblink">
+                <span>스토리 갤러리</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div class="header-utils">
+          <button class="btn-momenu">
+            <img th:src="@{/icons/ico_menu_black.svg}" alt="모바일메뉴 아이콘">
+          </button>
+          <button class="btn-close">
+            <img th:src="@{/icons/ico_close_black.svg}" alt="닫기 아이콘">
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="header-dim"></div>
+  </div>
+  <!-- [E]personal-NxLtV5diGU -->
+  <main class="th-layout-main ">
+
+    <div id="map" class="map"></div>
+
+  </main>
+</body>
+<script th:inline="javascript">
+  /*<![CDATA[*/
+  let imgList = /*[[${imgList}]]*/ []; // 이 부분은 서버 사이드 템플릿에서 처리되는 부분으로 가정
+  /*]]>*/
+  imgList = JSON.parse(imgList);
+
+  let map = sop.map("map");
+  map.setView(sop.utmk(1010020, 1943437), 3);
+
+  let markerList = sop.markerClusterGroup({animateAddingMarkers: true});
+
+  // 마커를 미리 생성하지 않고, 마커 정보만 저장할 배열을 선언
+  let markersToAdd = [];
+  console.time("forEachLoop");
+
+  imgList.forEach(function (img) {
+    // 좌표 형식 변환
+    let latLng = new sop.LatLng(img.latitude, img.longitude);
+
+    let myIcon = sop.icon({
+      iconUrl: `${img.path}`,
+      iconSize:     [32, 32],
+    });
+    //let marker = sop.marker([953427, 1950827], {icon: myIcon}); //마커 생성시 myIcon 옵션값이용 마커 생성
+    // 마커 생성
+    let marker = sop.marker(latLng, {icon: myIcon});
+
+    let htmlStr = `<img src='${img.path}' width='200vw' height='200vh' alt='a'>`;
+
+    marker.bindInfoWindow(htmlStr);
+    // 마커에 마우스 오버 이벤트 리스너 추가
+    // 마우스 오버 시 인포윈도우 열기
+    marker.on('mouseover', function () {
+      this.openInfoWindow();
+    });
+
+    // 마커에 마우스 아웃 이벤트 리스너 추가
+    // 마우스 아웃 시 인포윈도우 닫기
+    marker.on('mouseout', function () {
+      setTimeout(() => this.closeInfoWindow(), 3000);
+    });
+
+    // 마커를 배열에 추가
+    markersToAdd.push(marker);
+  });
+
+  // 모든 마커를 마커 클러스터 그룹에 한 번에 추가
+  markersToAdd.forEach(marker => {
+    markerList.addLayer(marker);
+  });
+
+  // 마커 클러스터 그룹을 지도에 추가
+  map.addLayer(markerList);
+
+  // 시간 측정 종료
+  console.timeEnd("forEachLoop");
+</script>
+</html>

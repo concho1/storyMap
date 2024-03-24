@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="imagetoolbar" content="no">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="format-detection" content="telephone=no">
+  <meta name="title" content="지도위의 스토리">
+  <meta name="description" content="지도위에 자신만의 스토리를 남겨보세요!">
+  <meta name="keywords" content="지도,스토리,갤러리">
+  <meta property="og:title" content="지도위의 스토리">
+  <meta property="og:description" content="지도위에 자신만의 스토리를 남겨보세요!">
+  <meta property="og:image" content="https://drive.google.com/thumbnail?id=1bHpAQGFz9WTw6LW5U8TCVgew1M9hqYsK&sz=w1080">
+  <meta property="og:url" content="https://웹사이트">
+  <title>로그인 페이지 | web갤러리</title>
+  <script th:inline="javascript">
+    /*<![CDATA[*/
+    var message = /*[[${message}]]*/ null;
+    if (message) {
+      alert(message);
+    }
+    /*]]>*/
+  </script>
+  <link rel="stylesheet" th:href="@{/css/setting.css}">
+  <link rel="stylesheet" th:href="@{/css/plugin.css}" >
+  <link rel="stylesheet" th:href="@{/css/template.css}">
+  <link rel="stylesheet" th:href="@{/css/common.css}">
+  <link rel="stylesheet" th:href="@{/css/style.css}">
+  <script defer th:src="@{/js/setting.js}"></script>
+  <script defer th:src="@{/js/plugin.js}"></script>
+  <script defer th:src="@{/js/template.js}"></script>
+  <script defer th:src="@{/js/common.js}"></script>
+  <script defer th:src="@{/js/script.js}"></script>
+</head>
+
+<body>
+  <!-- [S]personal-CyLtv4t579 -->
+  <div class="personal-CyLtv4t579" id="1" data-bid="RRLtv82QpF">
+    <div class="header-inner">
+      <div class="header-container container-lg">
+        <h1 class="header-title">
+          <a href="javascript:void(0)">
+            <img th:src="@{/medias/eb6c144c41554aaeb51944c04bdfcd45.png}" alt="" class="">
+          </a>
+        </h1>
+        <div class="header-right">
+          <div class="header-title header-mobile-top">
+            <a href="javascript:void(0)">
+              <img th:src="@{/medias/eb6c144c41554aaeb51944c04bdfcd45.png}" alt="">
+            </a>
+          </div>
+          <ul class="header-gnblist">
+            <li class="header-gnbitem">
+              <a class="header-gnblink" th:href="@{/home}">
+                <span>스토리 홈</span>
+              </a>
+            </li>
+            <li class="header-gnbitem">
+              <a class="header-gnblink" th:href="@{/forum}">
+                <span>스토리 게시판</span>
+              </a>
+            </li>
+            <li class="header-gnbitem">
+              <a class="header-gnblink" th:href="@{/user/log-in-form}">
+                <span>로그인</span>
+              </a>
+            </li>
+            <li class="header-gnbitem">
+              <a class="header-gnblink" th:href="@{/user/sign-up-form}">
+                <span>회원가입</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div class="header-utils">
+          <button class="btn-momenu">
+            <img th:src="@{/icons/ico_menu_black.svg}"  alt="모바일메뉴 아이콘">
+          </button>
+          <button class="btn-close">
+            <img th:src="@{/icons/ico_close_black.svg}" alt="닫기 아이콘">
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="header-dim"></div>
+  </div>
+  <!-- [E]personal-CyLtv4t579 -->
+  <main class="th-layout-main ">
+    <!-- [S]basic-N37 -->
+    <div class="basic-N37" data-bid="aUltv83dmq">
+      <div class="contents-inner">
+        <div class="contents-container container-md">
+          <div class="imageset">
+            <img class="imageset-img" th:src="@{https://images.pexels.com/photos/20446158/pexels-photo-20446158.jpeg}" alt="">
+          </div>
+          <form action="#" th:action="@{/user/log-in}" method="post" th:object="${user}" class="form-group form-line">
+            <div class="inputset inputset-line inputset-lg inputset-label">
+              <label>
+                <h6 class="inputset-tit">아이디(E-mail)<span>*</span>
+                </h6>
+                <input th:field="*{email}" type="text" class="inputset-input form-control" placeholder="이메일을 입력해주세요." aria-label="내용" required="">
+              </label>
+            </div>
+            <div class="inputset inputset-line inputset-lg inputset-label">
+              <label>
+                <h6 class="inputset-tit">비밀번호<span>*</span>
+                </h6>
+                <input th:field="*{pw}" type="text" class="inputset-input form-control" placeholder="비밀번호를 입력해 주세요." aria-label="내용" required="">
+              </label>
+            </div>
+            <br><br>
+            <div class="form-btn">
+              <button type="submit" class="btnset">로그인</button>
+            </div>
+            <div class="social">
+              <a id="google" href="javascript:void(0);" class="btnset btnset-line btnset-round">구글 로그인</a>
+              <a id="kakao" href="javascript:void(0);" class="btnset btnset-line btnset-round">카카오 로그인</a>
+              <a id="naver" href="javascript:void(0);" class="btnset btnset-line btnset-round">네이버 로그인</a>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <!-- [S]basic-N7 -->
+    <div class="basic-N7" data-bid="INLTNQTa8a" id="5">
+      <div class="contents-container">
+        <div class="videoset container-md">
+          <video class="videoset-video" loop="">
+            <source th:src="@{/medias/b9be25b80e0f42ef88bab088b8393504.mp4}">
+          </video>
+          <div class="videoset-body">
+            <button class="videoset-play">
+              <img th:src="@{/icons/ico_video_play.svg}" alt="플레이버튼">
+            </button>
+          </div>
+        </div>
+        <div class="contents-bottom">
+          <div class="textset container-md">
+            <h2 class="textset-tit">여행을 기록하는 새로운 방법, 지도위의 스토리</h2>
+            <p class="textset-desc">여행지마다의 특별한 순간을 기록하는 방법을 찾고 계신가요? '지도위의 스토리'는 여러분의 여행 경험을 지도 위에 생생하게 담아내는 웹사이트입니다. 사진 업로드와 함께 위치를 지도에 마킹하면, 여행의 순간들이 한눈에 보이는 개인 여행지도가 완성됩니다. 국내 어디서나, 여행의 순간을 지도 위에 영원히 남겨보세요.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- [E]basic-N37 -->
+  </main>
+  <!-- [S]personal-zxltv4SP71 -->
+  <div class="personal-zxltv4SP71" id="" data-bid="tvlTv82Y22">
+    <div class="footer-container container-lg">
+      <div class="footer-top">
+        <h1 class="footer-logo">
+        </h1>
+        <ul class="footer-menulist">
+          <li class="footer-menuitem">
+            <a href="javascript:void(0)">
+              <span>지도위의 스토리</span>
+            </a>
+          </li>
+          <li class="footer-menuitem">
+            <a href="javascript:void(0)">
+              <span>개인정보처리방침</span>
+            </a>
+          </li>
+          <li class="footer-menuitem">
+          </li>
+          <li class="footer-menuitem">
+          </li>
+        </ul>
+        <ul class="footer-snslist">
+          <li class="footer-snsitem">
+          </li>
+          <li class="footer-snsitem">
+          </li>
+          <li class="footer-snsitem">
+          </li>
+          <li class="footer-snsitem">
+            <a class="footer-snslink" href="javascript:void(0)">
+              <img src="../resources/icons/ico_kakao_lightgrey.svg" alt="카카오톡">
+            </a>
+          </li>
+        </ul>
+      </div>
+      <div class="footer-bottom">
+        <div class="footer-txt">
+          <p>Concho 서울, 성남 근무 가능</p>
+          <p>
+            <span>T. 추가 예정</span>
+            <span>E. 추가 예정.</span>
+          </p>
+        </div>
+        <div class="footer-txt">
+          <p>2024 MADE BY Concho</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- [E]personal-zxltv4SP71 -->
+
+</body>
