@@ -10,6 +10,8 @@ import com.story.concho.model.domain.Img;
 import com.story.concho.model.repository.ImgRepository;
 import com.story.concho.model.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -20,6 +22,7 @@ import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ImgService {
@@ -31,6 +34,14 @@ public class ImgService {
     public ImgService(UserRepository userRepository, ImgRepository imgRepository){
         this.userRepository = userRepository;
         this.imgRepository = imgRepository;
+    }
+
+    public void deleteImg(int id){
+        imgRepository.deleteById(id);
+    }
+    // 이미지 id로 이미지 조회
+    public Optional<Img> getImageById(int id){
+        return imgRepository.findById(id);
     }
 
     // 이메일로 이미지 찾기
@@ -47,37 +58,23 @@ public class ImgService {
         return result;
     }
 
-    public String getImagesLatitudeJson(String email){
-        List<Img> imgList = imgRepository.findImgsByEmail(email);
-        List<String> locationList = new ArrayList<>();
-        for(Img img : imgList){
-            locationList.add(img.getLatitude());
-        }
-        String result = "";
-        try{
-            result = objectMapper.writeValueAsString(locationList);
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-
-        return result;
+    public List<Img> getPageNumImages(int pageNum, int size, String email){
+        PageRequest pageable = PageRequest.of(pageNum, size);
+        Page<Img> imgsPage = imgRepository.findPageImgsByEmail(email,pageable);
+        List<Img> imgList = imgsPage.getContent();
+        return imgList;
     }
 
-    public String getImagesLongitudeJson(String email){
-        List<Img> imgList = imgRepository.findImgsByEmail(email);
-        List<String> locationList = new ArrayList<>();
-        for(Img img : imgList){
-            locationList.add(img.getLongitude());
-        }
-        String result = "";
-        try{
-            result = objectMapper.writeValueAsString(locationList);
-        }catch (Exception e){
-            e.printStackTrace();
-        }
+    public int getImgCntByEmail(String email, int size){
+        long imgCnt = imgRepository.countByEmail(email);
+        int maxPage;
 
-        return result;
+        if(imgCnt % size == 0) maxPage = (int)(imgCnt/size);
+        else maxPage = (int) (imgCnt / size) +1;
+        System.out.println(maxPage);
+        return maxPage;
     }
+
 
     public boolean tryImgUpload(MultipartFile multipartFile, String email){
         boolean result = false;
@@ -121,7 +118,7 @@ public class ImgService {
                     Img img = new Img(
                             email, latitude, longitude, date, imgUrlPath, fileName
                     );
-                    if(imgRepository.existsByName(fileName)){
+                    if(imgRepository.existsByNameAndEmail(fileName, email)){
                         System.out.println("파일이 이미 있습니다.");
                     }else{
                         imgRepository.save(img);

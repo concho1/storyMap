@@ -30,7 +30,17 @@ public class ApiUserController {
         this.imgService = imgService;
     }
 
-
+    @PostMapping("/delete-img")
+    public Boolean deleteImg(@RequestParam("id") int id, HttpSession session){
+        if(session.getAttribute("email") == null) {
+            if(!userService.emailCheckOk((String) session.getAttribute("email"))){
+                System.out.println("세션인증 실패");
+                return false;
+            }
+        }
+        imgService.deleteImg(id);
+        return true;
+    }
     // 이메일 중복 확인 api
     @PostMapping("/email-duplication")
     public Map<String, Boolean> checkEmail(@RequestBody Map<String, String> jsonMap){

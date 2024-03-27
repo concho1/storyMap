@@ -138,7 +138,7 @@
 }
 
 /* basic-N54 [bLLtTXudhG] */
-.basic-N54 .contents-inner { padding: 8rem 1.6rem; }
+.basic-N54 .contents-inner { padding: 1.6rem 1.6rem; }
 .basic-N54 .tabset { margin-bottom: 8rem; }
 .basic-N54 .contents-group { display: flex; flex-wrap: wrap; width: calc(100% + 4rem); margin-left: -2rem; }
 .basic-N54 .cardset { padding: 2rem; width: calc(100% / 3); }
@@ -154,7 +154,7 @@
  margin-right: 2rem; }
 .basic-N54 .icon-lg { width: 5rem; height: 5rem; }
 @media (max-width: 992px) {
- .basic-N54 .contents-inner { padding: 5rem 1.6rem; }
+ .basic-N54 .contents-inner { padding: 1.6rem 1.6rem; }
  .basic-N54 .contents-group { width: 100%; margin-left: 0; }
  .basic-N54 .cardset { width: 100%; padding: 0; }
  .basic-N54 .text-upload { display: flex; align-items: center; justify-content: flex-end; 

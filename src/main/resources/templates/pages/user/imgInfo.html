@@ -14,40 +14,46 @@
   <meta property="og:description" content="지도위에 자신만의 스토리를 남겨보세요!">
   <meta property="og:image" content="https://drive.google.com/thumbnail?id=1bHpAQGFz9WTw6LW5U8TCVgew1M9hqYsK&sz=w1080">
   <meta property="og:url" content="https://웹사이트">
-  <title>지도위의 스토리 게시판 | web갤러리</title>
+  <title>지도위의 스토리 홈 | web갤러리</title>
+  <script th:inline="javascript">
+    /*<![CDATA[*/
+    var message = /*[[${message}]]*/ null;
+    if (message) {
+      alert(message);
+    }
+    /*]]>*/
+  </script>
+  <script
+          src="https://code.jquery.com/jquery-3.7.1.js"
+          integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
+          crossorigin="anonymous">
+  </script>
   <link rel="stylesheet" th:href="@{/css/setting.css}">
   <link rel="stylesheet" th:href="@{/css/plugin.css}" >
   <link rel="stylesheet" th:href="@{/css/template.css}">
   <link rel="stylesheet" th:href="@{/css/common.css}">
   <link rel="stylesheet" th:href="@{/css/style.css}">
-  <!-- [E]personal-xBLttXK2ZR -->
   <script defer th:src="@{/js/setting.js}"></script>
   <script defer th:src="@{/js/plugin.js}"></script>
   <script defer th:src="@{/js/template.js}"></script>
   <script defer th:src="@{/js/common.js}"></script>
   <script defer th:src="@{/js/script.js}"></script>
-  <script defer th:src="@{/jsMy/script.js}"></script>
 </head>
 
 <body>
-  <!-- [S]personal-CnLTtXi9Ke -->
-  <div class="personal-CnLTtXi9Ke" data-bid="bLLtTXudhG" id="1">
-    <div class="contents-inner">
-      <div class="contents-container container-md">
-        <div class="tabset tabset-brick">
-        </div>
-      </div>
-    </div>
+  <!-- [S]basic-N1 -->
+  <div class="basic-N1" data-bid="JGLtnz86LK" id="1">
+    <div class="header-dim"></div>
   </div>
-  <!-- [E]personal-CnLTtXi9Ke -->
+  <!-- [E]basic-N1 -->
   <main class="th-layout-main ">
-    <!-- [S]personal-CnLTtXi9Ke -->
-    <div class="personal-CnLTtXi9Ke" data-bid="IkLTtyg7k6" id="2">
+    <!-- [S]basic-N2 -->
+    <div class="basic-N2" data-bid="pyltTX4eYW" id="2">
       <div class="header-dim"></div>
     </div>
-    <!-- [E]personal-CnLTtXi9Ke -->
-    <!-- [S]personal-NxLtV5diGU -->
-    <div class="personal-NxLtV5diGU" id="3" data-bid="OxlTV5dZI5">
+    <!-- [E]basic-N2 -->
+    <!-- [S]basic-N2 -->
+    <div class="basic-N2" data-bid="mJlTO0bNv0" id="3">
       <div class="header-inner">
         <div class="header-container container-lg">
           <h1 class="header-title">
@@ -62,11 +68,6 @@
               </a>
             </div>
             <ul class="header-gnblist">
-              <li class="header-gnbitem">
-                <a class="header-gnblink" th:href="@{/user/home}">
-                  <span>스토리 홈</span>
-                </a>
-              </li>
               <li class="header-gnbitem">
                 <a class="header-gnblink" th:href="@{/user/gallery}">
                   <span>스토리 갤러리</span>
@@ -101,81 +102,54 @@
       </div>
       <div class="header-dim"></div>
     </div>
-    <!-- [E]personal-NxLtV5diGU -->
-    <!-- [S]basic-N54 -->
-    <div class="basic-N54" data-bid="bLLtTXudhG">
+    <!-- [E]basic-N2 -->
+    <!-- [S]basic-N12 -->
+    <div class="basic-N12" data-bid="CRLTNqSm6O" id="4">
       <div class="contents-inner">
         <div class="contents-container container-md">
-          <div class="tabset tabset-brick">
-            <ul class="tabset-list tabset-lg">
-              <li class="tabset-item">
-                <a class="tabset-link active" href="javascript:void(0)">
-                  <span>최신글</span>
-                </a>
-              </li>
-              <li class="tabset-item">
-                <a class="tabset-link" href="javascript:void(0)">인기글<span></span>
-                </a>
-              </li>
-              <li class="tabset-item">
-                <a class="tabset-link" href="javascript:void(0)">
-                  <span>전체</span>
-                </a>
-              </li>
-            </ul>
-          </div>
-          <div class="text-upload">
-            <a th:href="@{/user/post}">
-              <strong>게시판 글쓰기 </strong>&nbsp; <img class="icon-lg" th:src="@{/medias/icons/iconsax-bold/document-text.svg}" alt="">
-            </a>
-          </div>
-          <br>
           <div class="contents-group">
-            <a href="javascript:void(0);" class="cardset">
+            <div class="cardset cardset-hor cardset-hor-reverse">
               <figure class="cardset-figure">
-                <img class="cardset-img" th:src="@{/images/img_basic_N54_1.png}" alt="카드 이미지">
+                <img class="cardset-img" th:src="@{${img.getPath()}}" alt="">
               </figure>
-              <div class="cardset-body">
-                <h2 class="cardset-tit"> 제목1</h2>
-                <span class="cardset-txt">2023.01.01 ~ 2023.01.31</span>
-              </div>
-            </a>
+              <form action="#" th:action="@{/user/update-img}" method="post" th:object="${img}" class="form-group form-line">
+                <div class="inputset inputset-line inputset-lg inputset-label">
+                  <label>
+                <span class="inputset-tit">이름<span>*</span>
+                </span>
+                    <input readonly th:field="*{name}" name="name_input" type="text" class="inputset-input form-control" placeholder="닉네임을 입력해주세요." aria-label="내용" required="">
+                  </label>
+                </div>
+                <div class="inputset inputset-line inputset-lg inputset-label">
+                  <label>
+                <span class="inputset-tit">날짜<span>*</span>
+                </span>
+                    <input readonly th:field="*{date}" name="mick_name_input" type="text" class="inputset-input form-control" placeholder="이름을 입력해주세요." aria-label="내용" required="">
+                  </label>
+                </div>
+                <div class="inputset inputset-line inputset-lg inputset-label">
+                  <label>
+                    <span class="inputset-tit">이미지 고유 아이디<span>*</span>
+                    </span>
+                        <input readonly th:field="*{id}" name="mick_name_input" type="text" class="inputset-input form-control" placeholder="나이를 입력해주세요." aria-label="내용" required="">
+                  </label>
+                </div>
+                <div class="form-btn">
+                  <button class="btnset" type="button" onclick="history.back()">뒤로가기</button>
+                  <button class="btnset" type="button" onclick="confirmAndDelete()">삭제하기</button>
+                </div>
+              </form>
+
+            </div>
           </div>
-          <nav class="pagiset pagiset-line">
-            <div class="pagiset-ctrl">
-              <a class="pagiset-link pagiset-first" href="javascript:void(0)">
-                <span class="visually-hidden">처음</span>
-              </a>
-            </div>
-            <div class="pagiset-ctrl">
-              <a class="pagiset-link pagiset-prev" href="javascript:void(0)">
-                <span class="visually-hidden">이전</span>
-              </a>
-            </div>
-            <div class="pagiset-list">
-              <a class="pagiset-link active-fill" href="javascript:void(0)">1</a>
-              <a class="pagiset-link" href="javascript:void(0)">2</a>
-              <a class="pagiset-link" href="javascript:void(0)">3</a>
-              <a class="pagiset-link" href="javascript:void(0)">4</a>
-            </div>
-            <div class="pagiset-ctrl">
-              <a class="pagiset-link pagiset-next" href="javascript:void(0)">
-                <span class="visually-hidden">다음</span>
-              </a>
-            </div>
-            <div class="pagiset-ctrl">
-              <a class="pagiset-link pagiset-last" href="javascript:void(0)">
-                <span class="visually-hidden">마지막</span>
-              </a>
-            </div>
-          </nav>
         </div>
       </div>
     </div>
-    <!-- [E]basic-N54 -->
+
+    <!-- [E]basic-N7 -->
   </main>
-  <!-- [S]personal-xBLttXK2ZR -->
-  <div class="personal-xBLttXK2ZR" id="" data-bid="jfltTXSEn6">
+  <!-- [S]basic-N4 -->
+  <div class="basic-N4" data-bid="BSlTNQT2kg" id="">
     <div class="footer-container container-lg">
       <div class="footer-top">
         <h1 class="footer-logo">
@@ -223,18 +197,35 @@
       </div>
     </div>
   </div>
-  <script>
-    function confirmLogout() {
-      // confirm 함수는 확인(true) 또는 취소(false)를 반환합니다.
-      var confirmAction = confirm("로그아웃하시겠습니까?");
-      if (confirmAction) {
-        // 사용자가 '확인'을 클릭한 경우, 로그아웃 링크의 기본 동작을 수행합니다.
-        return true;
-      } else {
-        // 사용자가 '취소'를 클릭한 경우, 로그아웃 링크의 기본 동작을 방지합니다.
-        return false;
-      }
-    }
-  </script>
-
+  <!-- [E]basic-N4 -->
 </body>
+<script th:inline="javascript">
+  function confirmAndDelete() {
+    let id = /*[[${img.id}]]*/ 0;
+    let pageNum = /*[[${pageNum}]]*/ 0;
+
+    pageNum = Number(pageNum);
+    console.log(id);
+    console.log(pageNum);
+    if (confirm('정말로 삭제하시겠습니까?')) {
+      // AJAX를 사용하여 POST 요청을 보냅니다.
+      $.ajax({
+        url: '/user/delete-img', // 요청을 보낼 서버의 URL 주소
+        type: 'POST', // HTTP 요청 방식 (GET, POST 등)
+        data: {
+          id : id
+        }, // 서버로 보낼 데이터.
+        success: function(response) {
+          // 요청이 성공적으로 완료되었을 때 실행할 코드
+          alert('삭제가 완료되었습니다.');
+          location.href='/user/gallery?page='+pageNum;
+        },
+        error: function(xhr, status, error) {
+          // 요청이 실패했을 때 실행할 코드
+          alert('삭제 처리 중 오류가 발생했습니다.');
+        }
+      });
+    }
+  }
+</script>
+</html>

@@ -52,7 +52,7 @@
               </a>
             </li>
             <li class="header-gnbitem">
-              <a class="header-gnblink">
+              <a class="header-gnblink" th:href="@{/user/gallery}">
                 <span>스토리 갤러리</span>
               </a>
             </li>
@@ -122,7 +122,8 @@
               </label>
             </div>
             <div class="form-btn">
-              <button class="btnset" type="button">제출하기</button>
+              <button class="btnset" type="submit">제출하기</button>
+              <button class="btnset" type="button" onclick="confirmPost()">뒤로가기</button>
             </div>
           </form>
         </div>
@@ -183,3 +184,11 @@
   </div>
 
 </body>
+<script>
+  function confirmPost(){
+    if (confirm('글쓰기를 취소하시겠습니까?')){
+      location.href="/forum"
+    }
+  }
+</script>
+</html>
