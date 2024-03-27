@@ -48,12 +48,15 @@ sgis map api 를 이용해 커스텀 마커(이미지)와 info윈도우 생성 �
 03/26 :
 이미지 갤러리 제작 완료. 
 (페이징 처리가 아직은 완벽하진 않음(모든 페이지 넘버를 화면에 띄어놓음) => 이후 사진이 늘어나 페이지가 너무 많아지면 페이지 넘버 처리를 어떻게 수정할지 고민중)
+
 ![image](https://github.com/concho1/storyMap/assets/142205346/37096da4-9eaf-45a9-a596-223e31756f71)
+
 
 03/27 :
 스토리 게시판 제작중... DB 테이블 제작 + 글쓰기 페이지 제작
 최신글, 인기글, 전체 순으로 정렬 가능하게 할 예정.
 검색 기능은 넣을까 말까 고민중...
+```
 CREATE TABLE forum_table
 (
     forum_id INT AUTO_INCREMENT PRIMARY KEY, -- 게시글의 고유 식별자
@@ -66,6 +69,7 @@ CREATE TABLE forum_table
     forum_comment_count INT DEFAULT 0, -- 댓글 수
     forum_like_count INT DEFAULT 0 -- 좋아요 수
 );
+```
 일단 이렇게 제작하고 댓글 처리도 구현 예정, 대댓글 까지는 구현하지 않을 예정.
 
 
