@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="imagetoolbar" content="no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="title" content="지도위의 스토리">
+    <meta name="description" content="지도위에 자신만의 스토리를 남겨보세요!">
+    <meta name="keywords" content="지도,스토리,갤러리">
+    <meta property="og:title" content="지도위의 스토리">
+    <meta property="og:description" content="지도위에 자신만의 스토리를 남겨보세요!">
+    <meta property="og:image" content="https://drive.google.com/thumbnail?id=1bHpAQGFz9WTw6LW5U8TCVgew1M9hqYsK&sz=w1080">
+    <meta property="og:url" content="https://웹사이트">
+    <title>지도위의 스토리 홈 | web갤러리</title>
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        var message = /*[[${message}]]*/ null;
+        if (message) {
+            alert(message);
+        }
+        /*]]>*/
+    </script>
+    <style>
+        .custom-form {
+            width: 99%;
+            margin-right: 2vw;
+        }
+
+        .textarea-container {
+            height: 40vh;
+        }
+
+        .textarea-full {
+            height: 100%;
+            width: 100%;
+        }
+
+        .custom-figure {
+            width: 30vw;
+        }
+        .custom-span{
+            margin-bottom: 3rem;
+        }
+
+        /* 모바일 화면에서 적용될 스타일 */
+        @media (max-width: 992px) {
+            .custom-figure {
+                width: 80%;
+            }
+
+            .custom-form {
+                margin-left: 1%;
+                margin-top: 3rem;
+                width: 99%;
+            }
+        }
+
+        .action-buttons {
+            display: flex;
+            justify-content: center; /* 버튼을 중앙 정렬 */
+            gap: 10px; /* 버튼 사이의 간격 */
+        }
+
+        .action-btn {
+            padding: 10px 20px; /* 패딩 설정 */
+            border: none; /* 테두리 제거 */
+            border-radius: 5px; /* 테두리 둥글게 */
+            background-color: #B3E0FF; /* 연한 하늘색 배경 */
+            color: #333; /* 글자 색상 */
+            cursor: pointer; /* 마우스 오버 시 커서 변경 */
+            transition: background-color 0.3s; /* 배경색 변경 시 애니메이션 효과 */
+        }
+
+        .action-btn:hover {
+            background-color: #99ccff; /* 버튼 호버 시 배경색 변경 */
+        }
+    </style>
+    <script
+            src="https://code.jquery.com/jquery-3.7.1.js"
+            integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
+            crossorigin="anonymous">
+    </script>
+    <link rel="stylesheet" th:href="@{/css/setting.css}">
+    <link rel="stylesheet" th:href="@{/css/plugin.css}" >
+    <link rel="stylesheet" th:href="@{/css/template.css}">
+    <link rel="stylesheet" th:href="@{/css/common.css}">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <script defer th:src="@{/js/setting.js}"></script>
+    <script defer th:src="@{/js/plugin.js}"></script>
+    <script defer th:src="@{/js/template.js}"></script>
+    <script defer th:src="@{/js/common.js}"></script>
+    <script defer th:src="@{/js/script.js}"></script>
+</head>
+
+<body>
+<!-- [S]basic-N1 -->
+<div class="basic-N1" data-bid="JGLtnz86LK" id="1">
+    <div class="header-dim"></div>
+</div>
+<!-- [E]basic-N1 -->
+<main class="th-layout-main ">
+    <!-- [S]basic-N2 -->
+    <div class="basic-N2" data-bid="pyltTX4eYW" id="2">
+        <div class="header-dim"></div>
+    </div>
+    <!-- [E]basic-N2 -->
+    <!-- [S]basic-N2 -->
+    <div class="basic-N2" data-bid="mJlTO0bNv0" id="3">
+        <div class="header-inner">
+            <div class="header-container container-lg">
+                <h1 class="header-title">
+                    <a href="javascript:void(0)">
+                        <img th:src="@{/medias/eb6c144c41554aaeb51944c04bdfcd45.png}" alt="" class="">
+                    </a>
+                </h1>
+                <div class="header-right">
+                    <div class="header-title header-mobile-top">
+                        <a href="javascript:void(0)">
+                            <img th:src="@{/medias/eb6c144c41554aaeb51944c04bdfcd45.png}" alt="">
+                        </a>
+                    </div>
+                    <ul class="header-gnblist">
+                        <li class="header-gnbitem">
+                            <a class="header-gnblink" th:href="@{/user/home}">
+                                <span>스토리 홈</span>
+                            </a>
+                        </li>
+                        <li class="header-gnbitem">
+                            <a class="header-gnblink" th:href="@{/user/gallery}">
+                                <span>스토리 갤러리</span>
+                            </a>
+                        </li>
+                        <li class="header-gnbitem">
+                            <a class="header-gnblink" th:href="@{/user/map}">
+                                <span>스토리 지도</span>
+                            </a>
+                        </li>
+                        <li class="header-gnbitem">
+                            <a class="header-gnblink" th:href="@{/user/forum}">
+                                <span>스토리 게시판</span>
+                            </a>
+                        </li>
+                        <li class="header-gnbitem">
+                            <a class="header-gnblink" th:href="@{/user/log-out}" onclick="return confirmLogout('로그아웃하시겠습니까?')">
+                                <span>로그아웃</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="header-utils">
+                    <button class="btn-momenu">
+                        <img th:src="@{/icons/ico_menu_black.svg}" alt="모바일메뉴 아이콘">
+                    </button>
+                    <button class="btn-close">
+                        <img th:src="@{/icons/ico_close_black.svg}" alt="닫기 아이콘">
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="header-dim"></div>
+    </div>
+    <!-- [E]basic-N2 -->
+    <!-- [S]basic-N12 -->
+    <div class="basic-N12" data-bid="CRLTNqSm6O" id="4">
+        <div class="contents-inner">
+            <div class="contents-container container-md">
+                <div class="contents-group">
+                    <div class="cardset cardset-hor cardset-hor-reverse">
+                        <figure class="cardset-figure custom-figure">
+                            <img class="cardset-img" th:src="@{${post.getPath()}}" alt="">
+                        </figure>
+                        <form class="form-group form-line custom-form" action="#" th:action="@{/user/update-post}" method="post" th:object="${post}">
+                            <div class="custom-span">
+                                작성자 : <span th:text="${nickName}"></span>&nbsp;&nbsp;&nbsp;
+                                조회수 : <span th:text="*{viewCount}"></span>&nbsp;&nbsp;&nbsp;
+                                댓글수 : <span th:text="*{commentCount}"></span>&nbsp;&nbsp;&nbsp;
+                                좋아요 : <span  th:text="*{likeCount}"></span>&nbsp;&nbsp;&nbsp;
+                            </div>
+
+                            <div class="inputset inputset-line inputset-lg inputset-label">
+                                <label>
+                                    <span class="inputset-tit">제목<span>*</span></span>
+                                    <input th:field="*{title}" name="name_input" type="text" class="inputset-input form-control" placeholder="닉네임을 입력해주세요." aria-label="내용" required="">
+                                </label>
+                            </div>
+                            <div class="inputset inputset-line inputset-lg inputset-label">
+                                <label>
+                                    <span class="inputset-tit">내용<span>*</span></span>
+                                </label>
+                            </div>
+                            <div class="textarea-container">
+                                <textarea th:field="*{content}" name="mick_name_input" class="textarea-full" placeholder="이름을 입력해주세요." aria-label="내용" required="">
+                                </textarea>
+                            </div>
+                            <div class="inputset inputset-line inputset-lg inputset-label">
+                            </div>
+                            <div class="form-btn">
+                                <button class="action-btn" type="button" onclick="">수정 완료</button>
+                                <button class="action-btn" type="button" onclick="goToList()">수정 취소</button>
+                                <button class="action-btn" type="button" onclick="confirmAndDelete()">삭제하기</button>
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- [E]basic-N7 -->
+</main>
+<div style="height: 20vh">
+
+</div>
+<!-- [S]basic-N4 -->
+<div class="basic-N4" data-bid="BSlTNQT2kg" id="">
+    <div class="footer-container container-lg">
+        <div class="footer-top">
+            <h1 class="footer-logo">
+            </h1>
+            <ul class="footer-menulist">
+                <li class="footer-menuitem">
+                    <a href="javascript:void(0)">
+                        <span>지도위의 스토리</span>
+                    </a>
+                </li>
+                <li class="footer-menuitem">
+                    <a href="javascript:void(0)">
+                        <span>개인정보처리방침</span>
+                    </a>
+                </li>
+                <li class="footer-menuitem">
+                </li>
+                <li class="footer-menuitem">
+                </li>
+            </ul>
+            <ul class="footer-snslist">
+                <li class="footer-snsitem">
+                </li>
+                <li class="footer-snsitem">
+                </li>
+                <li class="footer-snsitem">
+                </li>
+                <li class="footer-snsitem">
+                    <a class="footer-snslink" href="javascript:void(0)">
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="footer-bottom">
+            <div class="footer-txt">
+                <p>Concho 서울, 성남 근무 가능</p>
+                <p>
+                    <span>T. 추가 예정</span>
+                    <span>E. 추가 예정.</span>
+                </p>
+            </div>
+            <div class="footer-txt">
+                <p>2024 MADE BY Concho</p>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- [E]basic-N4 -->
+</body>
+<script th:inline="javascript">
+    function goToList() {
+        let postId = /*[[${post.id}]]*/ 0;
+        let pageNum = /*[[${pageNum}]]*/ 0;
+        //http://localhost:8090/user/forum?page=0
+        location.href='/user/forum?page='+pageNum;
+    }
+    function confirmAndDelete() {
+        let id = /*[[${post.id}]]*/ 0;
+        let pageNum = /*[[${pageNum}]]*/ 0;
+
+        pageNum = Number(pageNum);
+        console.log(id);
+        console.log(pageNum);
+        if (confirm('정말로 삭제하시겠습니까?')) {
+            // AJAX를 사용하여 POST 요청을 보냅니다.
+            $.ajax({
+                url: '/user/delete-post', // 요청을 보낼 서버의 URL 주소
+                type: 'POST', // HTTP 요청 방식 (GET, POST 등)
+                data: {
+                    id : id
+                }, // 서버로 보낼 데이터.
+                success: function(response) {
+                    // 요청이 성공적으로 완료되었을 때 실행할 코드
+                    alert('삭제가 완료되었습니다.');
+                    location.href='/user/forum?page='+pageNum;
+                },
+                error: function(xhr, status, error) {
+                    // 요청이 실패했을 때 실행할 코드
+                    alert('삭제 처리 중 오류가 발생했습니다.');
+                }
+            });
+        }
+    }
+</script>
+</html>

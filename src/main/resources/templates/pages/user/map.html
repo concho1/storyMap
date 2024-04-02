@@ -38,42 +38,69 @@
   <script defer th:src="@{/js/script.js}"></script>
   <script defer th:src="@{/jsMy/imgUpLoad.js}"></script>
   <style>
-    @media (max-width: 992px) {
-      #uploadProgress{
-        width: 60vw;
-      }
-      #fileInput{
-        width: 73px;
-      }
+    .upload-container {
+      margin-left: 3rem;
+      width: 90vw;
+      display: flex;
     }
-    .upload-container{
-      width: max-content;
+    #uploadButton{
+      width: 15vw; /* 모바일 환경에서 너비 조정 */
+      border: none;
+      background-color: white;
     }
     #fileInput{
-      width: 16.3vw;
+      width: 20vw;
     }
     #uploadProgress {
-      padding-top: 15px;
-      -webkit-appearance: none; /* 기본 스타일 제거 */
+      padding-top: 0.5rem;
+      padding-bottom: 0.5rem;
+      -webkit-appearance: none;
       appearance: none;
       width: 30vw; /* 너비 설정 */
-      height: 4vh; /* 높이 설정 */
-      border: none; /* 테두리 제거 */
+      margin-right: 2rem;
+      height: 4vh;
+      border: none;
     }
 
     #uploadProgress::-webkit-progress-bar {
-      background-color: #ddd; /* 배경 색상 */
-      border-radius: 5px; /* 테두리 둥글게 */
+      background-color: #ddd;
+      border-radius: 5px;
     }
 
     #uploadProgress::-webkit-progress-value {
-      background-color: #a7c2ff; /* 진행 바 색상 */
-      border-radius: 5px; /* 테두리 둥글게 */
+      background-color: #a7c2ff;
+      border-radius: 5px;
     }
 
     #uploadProgress::-moz-progress-bar {
-      background-color: #4CAF50; /* 파이어폭스용 진행 바 색상 */
-      border-radius: 5px; /* 테두리 둥글게 */
+      background-color: #4CAF50;
+      border-radius: 5px;
+    }
+
+    @media (max-width: 992px) {
+      .upload-container {
+        margin-left: 0;
+        width: 100vw; /* 전체 화면 너비 사용 */
+        padding: 1rem; /* 좀 더 여유로운 패딩 추가 */
+        flex-direction: column; /* 모바일 환경에서 세로 정렬을 위해 추가 */
+        align-items: center; /* 중앙 정렬을 위해 추가 */
+      }
+      #fileInput{
+        width: 70vw; /* 모바일 환경에서 너비 조정 */
+        margin-bottom: 1rem; /* 요소 간 간격 조정 */
+        margin-right: 0;
+      }
+      #uploadProgress{
+        width: 80vw; /* 모바일 환경에서 너비 조정 */
+        margin-bottom: 1rem; /* 요소 간 간격 조정 */
+        margin-right: 0;
+      }
+      #uploadButton{
+        width: 70vw; /* 모바일 환경에서 너비 조정 */
+        margin-bottom: 1rem; /* 요소 간 간격 조정 */
+        margin-right: 0;
+        border: none;
+      }
     }
 
   </style>
@@ -89,15 +116,7 @@
             <img th:src="@{/medias/eb6c144c41554aaeb51944c04bdfcd45.png}" alt="" class="">
           </a>
         </div>
-        <!-- 파일 업로드 부분 -->
-        <div class="upload-container">
-          <input type="file" id="fileInput" multiple>
-          <progress id="uploadProgress" value="0" max="100"></progress>
-          <button id="uploadButton">
-            <img class="icon-lg" th:src="@{/medias/icons/iconsax-bold/document-upload.svg}" alt="">
-          </button>
 
-        </div>
 
         <div class="header-right">
           <div class="header-title header-mobile-top">
@@ -111,10 +130,24 @@
                 <span>스토리 홈</span>
               </a>
             </li>
-
             <li class="header-gnbitem">
               <a class="header-gnblink" th:href="@{/user/gallery}">
                 <span>스토리 갤러리</span>
+              </a>
+            </li>
+            <li class="header-gnbitem">
+              <a class="header-gnblink" th:href="@{/user/map}">
+                <span>스토리 지도</span>
+              </a>
+            </li>
+            <li class="header-gnbitem">
+              <a class="header-gnblink" th:href="@{/user/forum}">
+                <span>스토리 게시판</span>
+              </a>
+            </li>
+            <li class="header-gnbitem">
+              <a class="header-gnblink" th:href="@{/user/log-out}" onclick="return confirmLogout('로그아웃하시겠습니까?')">
+                <span>로그아웃</span>
               </a>
             </li>
           </ul>
@@ -133,6 +166,16 @@
   </div>
   <!-- [E]personal-NxLtV5diGU -->
   <main class="th-layout-main ">
+    <!-- 파일 업로드 부분 -->
+    <div class="upload-container">
+      <input type="file" id="fileInput" multiple accept="image/*">
+
+      <progress id="uploadProgress" value="0" max="100"></progress>
+      <button id="uploadButton">
+        <span>이미지 업로드 : </span>
+        <img class="icon-lg" th:src="@{/medias/icons/iconsax-bold/document-upload.svg}" alt="">
+      </button>
+    </div>
 
     <div id="map" class="map"></div>
 
@@ -159,7 +202,6 @@
       iconUrl: `${img.path}`,
       iconSize:     [32, 32],
     });
-    //let marker = sop.marker([953427, 1950827], {icon: myIcon}); //마커 생성시 myIcon 옵션값이용 마커 생성
     // 마커 생성
     let marker = sop.marker(latLng, {icon: myIcon});
 

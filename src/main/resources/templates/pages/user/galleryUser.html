@@ -14,7 +14,7 @@
     <meta property="og:description" content="지도위에 자신만의 스토리를 남겨보세요!">
     <meta property="og:image" content="https://drive.google.com/thumbnail?id=1bHpAQGFz9WTw6LW5U8TCVgew1M9hqYsK&sz=w1080">
     <meta property="og:url" content="https://웹사이트">
-    <title>지도위의 스토리 게시판 | web갤러리</title>
+    <title>갤러리 페이지 | web갤러리</title>
     <link rel="stylesheet" th:href="@{/css/setting.css}">
     <link rel="stylesheet" th:href="@{/css/plugin.css}" >
     <link rel="stylesheet" th:href="@{/css/template.css}">
@@ -90,7 +90,7 @@
                             </a>
                         </li>
                         <li class="header-gnbitem">
-                            <a class="header-gnblink" th:href="@{/forum}">
+                            <a class="header-gnblink" th:href="@{/user/forum}">
                                 <span>스토리 게시판</span>
                             </a>
                         </li>
@@ -113,12 +113,13 @@
         </div>
         <div class="header-dim"></div>
     </div>
-    <!-- [E]personal-NxLtV5diGU -->
+    <!-- [E]personal-NxLtV5diGU  -->
     <!-- [S]basic-N54 -->
     <div class="basic-N54" data-bid="bLLtTXudhG">
         <div class="contents-inner">
             <div class="contents-container container-md">
-                <div class="contents-group">
+
+                <div class="contents-group"  th:if="${!imgList.isEmpty()}">
                     <a class="cardset" th:each="img : ${imgList}" th:data-img-id="${img.getId()}">
                         <figure class="cardset-figure">
                             <img class="cardset-img" th:src="@{${img.getPath()}}" alt="no img">
@@ -128,6 +129,20 @@
                             <span class="cardset-txt" th:text="${img.getDate()}"></span>
                         </div>
                     </a>
+                </div>
+                <div id="empty" th:unless="${!imgList.isEmpty()}">
+                    <h1>텅!</h1>
+                    <br>
+                    <h2>사진을 업로드해 주세요!</h2>
+                    <br>
+                    <div>
+                        <a class="header-gnblink" th:href="@{/user/map}">
+                            <div class="imageset">
+                                <img class="imageset-img" th:src="@{https://images.pexels.com/photos/20446158/pexels-photo-20446158.jpeg}" alt="">
+                            </div>
+                            <span>스토리 지도(이미지 업로드) 바로가기</span>
+                        </a>
+                    </div>
                 </div>
 
                 <nav class="pagiset pagiset-line">
@@ -212,7 +227,7 @@
 </div>
 <script th:inline="javascript">
     let currentPage = /*[[${page}]]*/ 0;
-    let maxPage = /*[[${maxPage}]]*/ 0;
+    let maxPage = /*[[${maxPage}]]*/ 1;
 
     currentPage = Number(currentPage); // 현제 페이지 idx
     maxPage = Number(maxPage);
@@ -221,17 +236,57 @@
 
     $(document).ready(() => {
         let pageButtonList = $("#pageButtonList");
+        let totalPageButtonCnt = 6;
+        let leftButton = currentPage + 1;
+        let rightButton = currentPage + 1;
+
+        for(let i=0; i<totalPageButtonCnt; i++){
+            if(i%2 === 0){      // 왼쪽 버튼 찍기
+                leftButton--;
+                if(!(leftButton > 0)){ //왼쪽 버튼 찍을게 없으면
+                    rightButton++;
+                    if(rightButton > maxPage){    //근데 오른쪽도 없으면
+                        // 아무것도 안하기
+                        console.log("아무것도 안하기");
+                    }else{          //오른쪽버튼 있음
+                        let button = `<a class='pagiset-link' href='/user/gallery?page=${rightButton-1}'>${rightButton}</a>`;
+                        pageButtonList.append(button);
+                    }
+                }else{              // 왼쪽버튼 있음
+                    let button = `<a class='pagiset-link' href='/user/gallery?page=${leftButton-1}'>${leftButton}</a>`;
+                    pageButtonList.prepend(button);
+                }
+            }else{              // 오른쪽 버튼 찍기
+                rightButton++;
+                if(rightButton > maxPage){
+                    leftButton--;
+                    if(!(leftButton > 0)){
+                        // 아무것도 안함
+                        console.log("아무것도 안하기");
+                    }else {
+                        let button = `<a class='pagiset-link' href='/user/gallery?page=${leftButton-1}'>${leftButton}</a>`;
+                        pageButtonList.prepend(button);
+                    }
+                }else{
+                    let button = `<a class='pagiset-link' href='/user/gallery?page=${rightButton-1}'>${rightButton}</a>`;
+                    pageButtonList.append(button);
+                }
+            }
+        }
+        /*
         // 페이지가 현제 페이지보다 작은 경우
-        for(let i=currentPage; i>0; i--){
+        for(let i=currentPage; i>Math.max(0, currentPage-6); i--){
             button = `<a class='pagiset-link' href='/user/gallery?page=${i-1}'>${i}</a>`;
             pageButtonList.prepend(button);
+            if(--totalPageButtonCnt < 0) break;
         }
         // 페이지가 현제 페이지보다 큰 경우
-        for(let i=currentPage + 2; i<=maxPage; i++){
+        for(let i=currentPage + 2; i<=Math.min(maxPage, currentPage + 7); i++){
             button = `<a class='pagiset-link' href='/user/gallery?page=${i-1}'>${i}</a>`;
             pageButtonList.append(button);
+            if(--totalPageButtonCnt < 0) break;
         }
-
+        */
         $("#after").click(
             function goToAfterPage() {
                 if (currentPage + 1 > maxPage-1) {

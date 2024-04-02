@@ -113,9 +113,14 @@
             </div>
             <div class="inputset inputset-line inputset-lg inputset-label">
               <label>
-                <span class="inputset-tit">비밀번호<span>*</span>
+                <span class="inputset-tit">비밀번호
+                  <a id="pw_show" href="#">
+                    <span>*</span>
+                    <small>비밀번호 보기</small>
+                    <span>*</span>
+                  </a>
                 </span>
-                <input th:field="*{pw}" name="password_input" type="password"  class="inputset-input form-control" placeholder="5자리 이상 20자리 이하" aria-label="내용" required="">
+                <input id="pwInput" th:field="*{pw}" name="password_input" type="password"  class="inputset-input form-control" placeholder="5자리 이상 20자리 이하" aria-label="내용" required="">
               </label>
             </div>
             <div class="inputset inputset-line inputset-lg inputset-label">
@@ -166,11 +171,13 @@
             <div class="form-btn">
               <button class="btnset" type="submit">회원가입</button>
             </div>
+            <!--
             <div class="social">
               <a id="google" href="javascript:void(0);" class="btnset btnset-line btnset-round">구글 회원가입</a>
               <a id="kakao" href="javascript:void(0);" class="btnset btnset-line btnset-round">카카오 회원가입</a>
               <a id="naver" href="javascript:void(0);" class="btnset btnset-line btnset-round">네이버 회원가입</a>
             </div>
+            -->
           </form>
         </div>
       </div>

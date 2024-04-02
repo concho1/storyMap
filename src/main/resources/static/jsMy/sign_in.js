@@ -7,6 +7,18 @@ $('#id_check').click(() => {
     }
 });
 
+$('#pw_show').click(function (){
+    let pwInput = $(this).parent().siblings('#pwInput');
+    pwInput.prop('type', 'text');
+    /*
+    if(pwInput.type === "password"){
+
+    }else{
+        pwInput.prop('type', 'password');
+    }
+    */
+});
+
 
 function checkEmailDuplication(email) {
     $.ajax({
@@ -17,10 +29,10 @@ function checkEmailDuplication(email) {
             email : email
         }),
         success : (responseData) => {
-            if(responseData.result) {
-                alert('사용 가능한 이메일 입니다.');
+            if(responseData.result ) {
+                alert('사용 가능한 이메일 입니다!');
             }else{
-                alert('이미 사용중인 이메일 입니다.');
+                alert('이미 사용중인 이메일 입니다 ㅠㅠㅠ');
             }
         },
         error : (error) => {

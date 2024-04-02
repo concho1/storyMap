@@ -270,6 +270,7 @@
 .basic-N37 .checkset-wrap .checkset+.checkset { margin-top: 0; margin-left: 6rem; }
 .basic-N37 .contents-agree { display: flex; align-items: center; justify-content: space-between; margin-top: 4rem; line-height: 1; }
 .basic-N37 #id_check { font-size: 1.5rem; margin-left: 3rem; }
+.basic-N37 #pw_show { font-size: 1.5rem; margin-left: 3rem; }
 @media (max-width: 992px) {
  .basic-N37 .contents-inner { padding: 5rem 1.6rem; }
  .basic-N37 .contents-container { flex-direction: column; }

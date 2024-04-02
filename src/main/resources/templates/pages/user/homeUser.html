@@ -64,6 +64,11 @@
             </div>
             <ul class="header-gnblist">
               <li class="header-gnbitem">
+                <a class="header-gnblink" th:href="@{/user/home}">
+                  <span>스토리 홈</span>
+                </a>
+              </li>
+              <li class="header-gnbitem">
                 <a class="header-gnblink" th:href="@{/user/gallery}">
                   <span>스토리 갤러리</span>
                 </a>
@@ -74,12 +79,12 @@
                 </a>
               </li>
               <li class="header-gnbitem">
-                <a class="header-gnblink" th:href="@{/forum}">
+                <a class="header-gnblink" th:href="@{/user/forum}">
                   <span>스토리 게시판</span>
                 </a>
               </li>
               <li class="header-gnbitem">
-                <a class="header-gnblink" th:href="@{/user/log-out}" onclick="return confirm('로그아웃하시겠습니까?')">
+                <a class="header-gnblink" th:href="@{/user/log-out}" onclick="return confirmLogout('로그아웃하시겠습니까?')">
                   <span>로그아웃</span>
                 </a>
               </li>

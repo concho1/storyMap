@@ -19,6 +19,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -76,60 +77,81 @@ public class ImgService {
     }
 
 
-    public boolean tryImgUpload(MultipartFile multipartFile, String email){
-        boolean result = false;
+    public String[] tryImgUpload(MultipartFile multipartFile, String email){
+        String[] result = {"false", null};
         String folderId = userRepository.findFolderIdByEmail(email);
         System.out.println("스타트" + folderId + multipartFile.isEmpty());
         // 빈값이 있으면 false 리턴
-        if(folderId == null) return false;
+        if(folderId == null) return new String[] {"false", null};
 
         String fileName = multipartFile.getOriginalFilename();
         if(fileName == null || fileName.contains("mp4") ){
-            return false;
+            return new String[] {"false", null};
         }
         Path savePath   = Paths.get(folderId).resolve(fileName);
-
-
         try{
             // 폴더가 없으면 만든다.
             if (Files.notExists(savePath.getParent())) {
                 Files.createDirectories(savePath.getParent());
             }
-            // StandardCopyOption.REPLACE_EXISTING => 같은 파일 이름이 있으면 덮어씌운다.
-            Files.copy(multipartFile.getInputStream(), savePath, StandardCopyOption.REPLACE_EXISTING);
-            result = true;
             // 여기에서 메타데이터 추출 시작
             Metadata metadata = ImageMetadataReader.readMetadata(multipartFile.getInputStream());
             GpsDirectory gpsDirectory = metadata.getFirstDirectoryOfType(GpsDirectory.class);
             // 기존 코드에서 메타데이터를 읽는 부분 뒤에 추가
             ExifSubIFDDirectory directory = metadata.getFirstDirectoryOfType(ExifSubIFDDirectory.class);
-            System.out.println("gps 전");
+
+            GeoLocation geoLocation = null;
+            String latitude = "0";
+            String longitude = "0";
             if (gpsDirectory != null) {
                 // 위도와 경도 추출
-                GeoLocation geoLocation = gpsDirectory.getGeoLocation();
-                if (geoLocation != null) {
-                    System.out.println("gps 후");
-                    String latitude = String.valueOf(geoLocation.getLatitude());
-                    String longitude = String.valueOf(geoLocation.getLongitude());
-                    // 촬영 날짜 추출
-                    String date = String.valueOf(directory.getDate(ExifSubIFDDirectory.TAG_DATETIME_ORIGINAL));
-                    String imgUrlPath = savePath.toString();
-                    imgUrlPath = imgUrlPath.substring(6).replace('\\','/');
-                    Img img = new Img(
-                            email, latitude, longitude, date, imgUrlPath, fileName
-                    );
-                    if(imgRepository.existsByNameAndEmail(fileName, email)){
-                        System.out.println("파일이 이미 있습니다.");
-                    }else{
-                        imgRepository.save(img);
-                        System.out.println(
-                                "이미지 저장 완료 : "+imgUrlPath +
-                                " GPS :"+latitude + "  " + longitude
-                        );
-                        System.out.println();
-                        result = true;
-                    }
+                geoLocation = gpsDirectory.getGeoLocation();
+            }
+            if (geoLocation != null) {
+                latitude = String.valueOf(geoLocation.getLatitude());
+                longitude = String.valueOf(geoLocation.getLongitude());
+            }
+
+            String date;
+            // directory 객체가 null인지 먼저 확인
+            if (directory != null) {
+                Date capturedDate = directory.getDate(ExifSubIFDDirectory.TAG_DATETIME_ORIGINAL);
+
+                if (capturedDate != null) {
+                    // 촬영 날짜가 있는 경우, 해당 날짜를 문자열로 변환
+                    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                    date = dateFormat.format(capturedDate);
+                } else {
+                    // 촬영 날짜가 없는 경우, 현재 날짜와 시간을 사용
+                    date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
                 }
+            } else {
+                // directory 객체가 null인 경우, 현재 날짜와 시간을 사용
+                date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
+            }
+            String imgUrlPath = savePath.toString();
+            imgUrlPath = imgUrlPath.substring(6).replace('\\','/');
+            Img img = new Img(
+                    email, latitude, longitude, date, imgUrlPath, fileName
+            );
+            if(imgRepository.existsByNameAndEmail(fileName, email)){
+                System.out.println("파일이 이미 있습니다.");
+                result[0] = "true";
+                result[1] = imgUrlPath;
+            }else{
+                imgRepository.save(img);
+                // StandardCopyOption.REPLACE_EXISTING => 같은 파일 이름이 있으면 덮어씌운다.
+                Files.copy(multipartFile.getInputStream(), savePath, StandardCopyOption.REPLACE_EXISTING);
+                System.out.println(
+                        "이미지 저장 완료 : "+imgUrlPath +
+                                " GPS :"+latitude + "  " + longitude
+                );
+                if(latitude.equals("0") || longitude.equals("0")){
+                    result[0] = "noGPS";
+                }else{
+                    result[0] = "true";
+                }
+                result[1] = imgUrlPath;
             }
 
         }catch (Exception e){

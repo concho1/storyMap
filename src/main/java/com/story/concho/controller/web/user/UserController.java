@@ -31,28 +31,21 @@ public class UserController {
         return (session.getAttribute("email") == null);
     }
 
-    @GetMapping("/forumUpload")
-    public String getFoumUpload(){
-        return "pages/user/post";
-    }
+
     @GetMapping("/map")
     public String getMap(Model model, HttpSession session, RedirectAttributes redirectAttributes){
         if(sessionCheck(session)){
             redirectAttributes.addFlashAttribute("message", "세션이 만료되었습니다.");
             return  "redirect:/user/log-in-form";
         }
-        String email = session.getAttribute("email").toString();
 
+        String email = session.getAttribute("email").toString();
         // 받아온 JavaScript 코드를 모델에 추가합니다.
         model.addAttribute("proxyMapJs", userService.getMapJsString());
-
         // locationList
         model.addAttribute("imgList", imgService.getImagesJson(email));
+        
         return "pages/user/map";
-    }
-    @GetMapping("/post")
-    public String getPost(){
-        return "pages/user/post";
     }
 
     // 세션 확인 후 회원 홈페이지 주기

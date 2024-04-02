@@ -14,13 +14,7 @@ public class AController {
     public String getHome(){
         return "pages/open/home";
     }
-    @GetMapping("/forum")
-    public String getForum(HttpSession session){
-        String email = (String) session.getAttribute("email");
 
-        if(email != null) return "pages/user/forumUser";
-        else return "pages/open/forum";
-    }
 }
 /*
 

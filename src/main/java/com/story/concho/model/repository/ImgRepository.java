@@ -16,7 +16,7 @@ public interface ImgRepository extends CrudRepository<Img, Integer> {
     List<Img> findImgsByEmail(String email);
     // @Query 어노테이션을 사용하여 커스텀 쿼리 정의
 
-    @Query("SELECT i FROM Img i WHERE i.email = :email ORDER BY i.date DESC")
+    @Query("SELECT i FROM Img i WHERE i.email = :email ORDER BY i.id DESC")
     Page<Img> findPageImgsByEmail(@Param("email") String email, Pageable pageable);
 
     long countByEmail(String email);

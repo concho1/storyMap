@@ -15,6 +15,19 @@
   <meta property="og:image" content="https://drive.google.com/thumbnail?id=1bHpAQGFz9WTw6LW5U8TCVgew1M9hqYsK&sz=w1080">
   <meta property="og:url" content="https://웹사이트">
   <title>지도위의 스토리 게시판 | web갤러리</title>
+  <script
+          src="https://code.jquery.com/jquery-3.7.1.js"
+          integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
+          crossorigin="anonymous">
+  </script>
+  <script th:inline="javascript">
+    /*<![CDATA[*/
+    let message = /*[[${message}]]*/ null;
+    if (message) {
+      alert(message);
+    }
+    /*]]>*/
+  </script>
   <link rel="stylesheet" th:href="@{/css/setting.css}">
   <link rel="stylesheet" th:href="@{/css/plugin.css}" >
   <link rel="stylesheet" th:href="@{/css/template.css}">
@@ -78,7 +91,7 @@
                 </a>
               </li>
               <li class="header-gnbitem">
-                <a class="header-gnblink" th:href="@{/forum}">
+                <a class="header-gnblink" th:href="@{/user/forum}">
                   <span>스토리 게시판</span>
                 </a>
               </li>
@@ -114,7 +127,8 @@
                 </a>
               </li>
               <li class="tabset-item">
-                <a class="tabset-link" href="javascript:void(0)">인기글<span></span>
+                <a class="tabset-link" href="javascript:void(0)">
+                  <span>인기글</span>
                 </a>
               </li>
               <li class="tabset-item">
@@ -130,41 +144,57 @@
             </a>
           </div>
           <br>
-          <div class="contents-group">
-            <a href="javascript:void(0);" class="cardset">
+
+          <div class="contents-group" th:if="${!postList.isEmpty()}">
+            <a class="cardset" th:each="post : ${postList}" th:data-post-id="${post.getId()}">
               <figure class="cardset-figure">
-                <img class="cardset-img" th:src="@{/images/img_basic_N54_1.png}" alt="카드 이미지">
+                <img class="cardset-img" th:src="@{${post.getPath()}}" alt="카드 이미지">
               </figure>
               <div class="cardset-body">
-                <h2 class="cardset-tit"> 제목1</h2>
-                <span class="cardset-txt">2023.01.01 ~ 2023.01.31</span>
+                <h2 class="cardset-tit"><span th:text="${post.getTitle()}"></span></h2>
+                <span class="cardset-txt" th:text="${dateList.pop()}"></span><br>
+                <span class="cardset-txt">조회수 : </span><span class="cardset-txt" th:text="${post.getViewCount()}"></span>&nbsp;&nbsp;&nbsp;
+                <span class="cardset-txt">좋아요 : </span><span class="cardset-txt" th:text="${post.getLikeCount()}"></span>
               </div>
             </a>
           </div>
+          <div id="empty" th:unless="${!postList.isEmpty()}">
+            <h1>텅!</h1>
+            <br>
+            <h2>게시글이 없습니다!</h2>
+            <br>
+            <div>
+              <a class="header-gnblink" th:href="@{/user/post}">
+                <div class="imageset">
+                  <img class="imageset-img" th:src="@{https://images.pexels.com/photos/20446158/pexels-photo-20446158.jpeg}" alt="">
+                </div>
+                <span>게시글 작성 바로가기</span>
+              </a>
+            </div>
+          </div>
+
           <nav class="pagiset pagiset-line">
             <div class="pagiset-ctrl">
-              <a class="pagiset-link pagiset-first" href="javascript:void(0)">
+              <a class="pagiset-link pagiset-first" th:href="@{/user/forum(page=0)}">
                 <span class="visually-hidden">처음</span>
               </a>
             </div>
             <div class="pagiset-ctrl">
-              <a class="pagiset-link pagiset-prev" href="javascript:void(0)">
+              <!-- 타임리프의 js 호출 방법 -->
+              <div id="prev" class="pagiset-link pagiset-prev">
                 <span class="visually-hidden">이전</span>
-              </a>
+              </div>
             </div>
-            <div class="pagiset-list">
-              <a class="pagiset-link active-fill" href="javascript:void(0)">1</a>
-              <a class="pagiset-link" href="javascript:void(0)">2</a>
-              <a class="pagiset-link" href="javascript:void(0)">3</a>
-              <a class="pagiset-link" href="javascript:void(0)">4</a>
+            <div class="pagiset-list" id="pageButtonList">
+              <a class='pagiset-link active-fill' th:href="@{/user/forum(page=${page})}"><span th:text="${page+1}"></span></a>
             </div>
             <div class="pagiset-ctrl">
-              <a class="pagiset-link pagiset-next" href="javascript:void(0)">
+              <div id="after" class="pagiset-link pagiset-next">
                 <span class="visually-hidden">다음</span>
-              </a>
+              </div>
             </div>
             <div class="pagiset-ctrl">
-              <a class="pagiset-link pagiset-last" href="javascript:void(0)">
+              <a class="pagiset-link pagiset-last" th:href="@{/user/forum(page=${maxPage} - 1)}">
                 <span class="visually-hidden">마지막</span>
               </a>
             </div>
@@ -236,5 +266,113 @@
       }
     }
   </script>
+  <script th:inline="javascript">
+    let currentPage = /*[[${page}]]*/ 0;
+    let maxPage = /*[[${maxPage}]]*/ 1;
+
+    currentPage = Number(currentPage); // 현제 페이지 idx
+    maxPage = Number(maxPage);
+    console.log(currentPage);
+    console.log(maxPage);
+
+    $(document).ready(() => {
+      let pageButtonList = $("#pageButtonList");
+      let totalPageButtonCnt = 6;
+      let leftButton = currentPage + 1;
+      let rightButton = currentPage + 1;
+
+      for(let i=0; i<totalPageButtonCnt; i++){
+        if(i%2 === 0){      // 왼쪽 버튼 찍기
+          leftButton--;
+          if(!(leftButton > 0)){ //왼쪽 버튼 찍을게 없으면
+            rightButton++;
+            if(rightButton > maxPage){    //근데 오른쪽도 없으면
+              // 아무것도 안하기
+              console.log("아무것도 안하기");
+            }else{          //오른쪽버튼 있음
+              let button = `<a class='pagiset-link' href='/user/forum?page=${rightButton-1}'>${rightButton}</a>`;
+              pageButtonList.append(button);
+            }
+          }else{              // 왼쪽버튼 있음
+            let button = `<a class='pagiset-link' href='/user/forum?page=${leftButton-1}'>${leftButton}</a>`;
+            pageButtonList.prepend(button);
+          }
+        }else{              // 오른쪽 버튼 찍기
+          rightButton++;
+          if(rightButton > maxPage){
+            leftButton--;
+            if(!(leftButton > 0)){
+              // 아무것도 안함
+              console.log("아무것도 안하기");
+            }else {
+              let button = `<a class='pagiset-link' href='/user/forum?page=${leftButton-1}'>${leftButton}</a>`;
+              pageButtonList.prepend(button);
+            }
+          }else{
+            let button = `<a class='pagiset-link' href='/user/forum?page=${rightButton-1}'>${rightButton}</a>`;
+            pageButtonList.append(button);
+          }
+        }
+      }
+      /*
+      // 페이지가 현제 페이지보다 작은 경우
+      for(let i=currentPage; i>Math.max(0, currentPage-6); i--){
+          button = `<a class='pagiset-link' href='/user/gallery?page=${i-1}'>${i}</a>`;
+          pageButtonList.prepend(button);
+          if(--totalPageButtonCnt < 0) break;
+      }
+      // 페이지가 현제 페이지보다 큰 경우
+      for(let i=currentPage + 2; i<=Math.min(maxPage, currentPage + 7); i++){
+          button = `<a class='pagiset-link' href='/user/gallery?page=${i-1}'>${i}</a>`;
+          pageButtonList.append(button);
+          if(--totalPageButtonCnt < 0) break;
+      }
+      */
+      $("#after").click(
+              function goToAfterPage() {
+                if (currentPage + 1 > maxPage-1) {
+                  alert('마지막 페이지입니다.');
+                } else {
+                  window.location.href = '/user/forum?page=' + (currentPage + 1);
+                }
+              }
+      );
+      $("#prev").click(
+              function goToPrevPage() {
+                if (currentPage - 1 < 0) {
+                  alert('첫 번째 페이지입니다.');
+                } else {
+                  window.location.href = '/user/forum?page=' + (currentPage -1);
+                }
+              }
+      );
+
+      $('.cardset').click(function() {
+        // data-img-id 속성에서 이미지 ID 가져오기
+        let imgId = $(this).data('post-id');
+        // URL 구성
+        let url = '/user/post-info?postId='+ imgId+'&pageNum='+(currentPage);
+        // 페이지 리디렉션
+        location.href = url;
+      });
+
+      function confirmLogout() {
+        // confirm 함수는 확인(true) 또는 취소(false)를 반환합니다.
+        let confirmAction = confirm("로그아웃하시겠습니까?");
+        if (confirmAction) {
+          // 사용자가 '확인'을 클릭한 경우, 로그아웃 링크의 기본 동작을 수행합니다.
+          return true;
+        } else {
+          // 사용자가 '취소'를 클릭한 경우, 로그아웃 링크의 기본 동작을 방지합니다.
+          return false;
+        }
+      }
+
+    });
+
+
+  </script>
+
+
 
 </body>

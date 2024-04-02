@@ -15,13 +15,35 @@
   <meta property="og:image" content="https://drive.google.com/thumbnail?id=1bHpAQGFz9WTw6LW5U8TCVgew1M9hqYsK&sz=w1080">
   <meta property="og:url" content="https://웹사이트">
   <title>글쓰기 페이지 | web갤러리</title>
-
+  <script
+          src="https://code.jquery.com/jquery-3.7.1.js"
+          integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
+          crossorigin="anonymous">
+  </script>
+  <script th:inline="javascript">
+    /*<![CDATA[*/
+    let message = /*[[${message}]]*/ null;
+    if (message) {
+      alert(message);
+    }
+    /*]]>*/
+  </script>
   <link rel="stylesheet" th:href="@{/css/setting.css}">
   <link rel="stylesheet" th:href="@{/css/plugin.css}" >
   <link rel="stylesheet" th:href="@{/css/template.css}">
   <link rel="stylesheet" th:href="@{/css/common.css}">
   <link rel="stylesheet" th:href="@{/css/style.css}">
+  <style>
+    .img-upload{
+      text-align: right;
+    }
+    #imgUpload{
+      border: 0;
+      background-color: transparent;
+    }
+  </style>
   <!-- [E]personal-xBLttXK2ZR -->
+  <script defer th:src="@{/jsMy/imgUploadForForum.js}"></script>
   <script defer th:src="@{/js/setting.js}"></script>
   <script defer th:src="@{/js/plugin.js}"></script>
   <script defer th:src="@{/js/template.js}"></script>
@@ -62,7 +84,7 @@
               </a>
             </li>
             <li class="header-gnbitem">
-              <a class="header-gnblink" th:href="@{/forum}">
+              <a class="header-gnblink" th:href="@{/user/forum}">
                 <span>스토리 게시판</span>
               </a>
             </li>
@@ -91,30 +113,28 @@
     <div class="basic-N24" data-bid="xwLtu0B22V" id="2">
       <div class="contents-inner">
         <div class="contents-container container-md">
-          <form action="#" method="post"  class="form-group">
+
+          <form action="#" th:action="@{/user/forum-post}" method="post" th:object="${post}"  class="form-group">
             <div class="textset">
               <h2 class="textset-tit">글쓰기</h2>
             </div>
-            <div class="inputset inputset-lg inputset-label">
-              <label>
-              </label>
+            <div class="img-upload">
+              <input type="file" id="fileInput" multiple>
+              <small>업로드 한 이미지 : </small>&nbsp;&nbsp;
+              <span id="selectImg">기본 이미지</span>
             </div>
+            <input id="imgPath" th:field="*{path}" type="hidden">
             <div class="inputset inputset-lg inputset-label">
               <label>
                 <h6 class="inputset-tit">제목</h6>
-                <input type="text" class="inputset-input form-control" placeholder="제목을 입력해주세요." aria-label="내용" required="">
+                <input th:field="*{title}" type="text" class="inputset-input form-control" placeholder="제목을 입력해주세요." aria-label="내용" required="">
               </label>
             </div>
             <div class="inputset inputset-lg inputset-label">
+
               <label>
-                <h6 class="inputset-tit">내용 <a href="javascript:void(0)">
-                    <div class="img-upload">
-                      <small>이미지 업로드 : </small>
-                      <img class="icon-lg" th:src="@{/medias/icons/iconsax-bold/document-upload.svg}" alt="">
-                    </div>
-                  </a>
-                </h6>
-                <textarea class="inputset-textarea textarea-keyup form-control" placeholder="내용을 입력해주세요." required=""></textarea>
+                <h6 class="inputset-tit">내용</h6>
+                <textarea th:field="*{content}" class="inputset-textarea textarea-keyup form-control" placeholder="내용을 입력해주세요." ></textarea>
                 <div class="inputset-langth">
                   <span class="inputset-count">0</span>
                   <span class="inputset-total">/4000</span>
@@ -123,9 +143,10 @@
             </div>
             <div class="form-btn">
               <button class="btnset" type="submit">제출하기</button>
-              <button class="btnset" type="button" onclick="confirmPost()">뒤로가기</button>
+              <button class="btnset" type="button" onclick="confirmPost()">글쓰기 취소</button>
             </div>
           </form>
+
         </div>
       </div>
     </div>
@@ -185,9 +206,14 @@
 
 </body>
 <script>
+  $(document).ready(() => {
+    // 기본 이미지 적용
+    $('#imgPath').val('/user_img/original_img.jpg');
+
+  });
   function confirmPost(){
-    if (confirm('글쓰기를 취소하시겠습니까?')){
-      location.href="/forum"
+    if (confirm('글쓰기를 취소하시겠습니까? 글은 저장되지 않습니다.')){
+      location.href="/user/forum"
     }
   }
 </script>

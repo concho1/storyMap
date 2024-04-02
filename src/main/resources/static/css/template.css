@@ -408,7 +408,7 @@ body.body-scroll { overflow: hidden; }
 /* Button : Badge */
 .btnset.btnset-badge { gap: .5rem; position: relative; } 
 @media (max-width: 992px){
- .btnset { min-width: 16rem; padding: 0 1.6rem; } 
+ .btnset { min-width: 16rem; padding: 0 1.6rem; margin-top: 10px}
  .btnset.btnset-xl { min-width: 9rem; padding: 0 2.8rem; } 
  .btnset.btnset-lg { min-width: 6.8rem; padding: 0 2rem; } 
  .btnset.btnset-sm { min-width: 4.2rem; padding: 0 1.6rem; } 
@@ -573,11 +573,11 @@ body.body-scroll { overflow: hidden; }
 .form-control:hover:not(:disabled):not([readonly])::-webkit-file-upload-button { background-color: #dde0e3; } 
 .form-control:hover:not(:disabled):not([readonly])::file-selector-button { background-color: #dde0e3; } 
 .form-group .inputset + .inputset { margin-top: 2.4rem; } 
-.form-group .form-btn { margin-top: 4rem; text-align: center; } 
+.form-group .form-btn { margin-top: 4rem; text-align: center; }
 .form-group .form-btn.btn-right { text-align: right; } 
 .form-group .textset { text-align: center; } 
 .form-group.form-line .inputset + .inputset { margin-top: 4rem; } 
-.form-group.form-line .form-btn { margin-top: 6rem; text-align: right; } 
+.form-group.form-line .form-btn { margin-top: 2rem; text-align: right; }
 .form-group .form-tit { margin-bottom: 1.6rem; font-size: var(--fs-p1); line-height: var(--lh-p1); font-weight: 600; } 
 .form-group .form-tit span { margin-left: 0.4rem; font-size: var(--fs-p1); font-weight: 600; color: var(--danger); } 
 

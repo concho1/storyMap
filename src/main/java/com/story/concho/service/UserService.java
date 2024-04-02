@@ -46,6 +46,8 @@ public class UserService {
 
     // email-pw 체크
     public boolean logInCheckOk(String email, String pw){
+        email = email.trim();
+        pw = pw.trim();
         return userRepository.existsByEmailAndPw(email, pw);
     }
 
@@ -54,7 +56,7 @@ public class UserService {
     // email  체크
     public boolean emailCheckOk(String email){
         boolean emailCheckResult = userRepository.existsById(email);
-        return !emailCheckResult;
+        return emailCheckResult;
     }
     public String getNickNameByEmail(String email){
         String nickName = userRepository.findNicknameByEmail(email);
@@ -98,6 +100,10 @@ public class UserService {
 
         user.setFolderId(folder.getAbsolutePath());
         user.setSignupDate(formattedDate);
+
+        user.setEmail(user.getEmail().trim());
+        user.setPw(user.getPw().trim());
+
         userRepository.save(user);
         return createUserResult;
     }

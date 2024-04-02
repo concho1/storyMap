@@ -23,6 +23,7 @@ public class ApiUserController {
 
     private final UserService userService;
     private final ImgService imgService;
+
     // 생성자 의존성 주입
     @Autowired
     public ApiUserController(UserService userService, ImgService imgService){
@@ -41,16 +42,17 @@ public class ApiUserController {
         imgService.deleteImg(id);
         return true;
     }
+    
     // 이메일 중복 확인 api
     @PostMapping("/email-duplication")
     public Map<String, Boolean> checkEmail(@RequestBody Map<String, String> jsonMap){
         boolean result;
         // json 데이터의 key-value 쌍을 java 의 Map 인터페이스로 받는다.
         String email = jsonMap.get("email");
-        result = userService.emailCheckOk(email);
+        result = !userService.emailCheckOk(email);
 
         // 다시 key-value 쌍으로 결과를 key: result 에 담아 return
-        var resultJsonMap = new HashMap<String, Boolean>();
+        HashMap<String, Boolean> resultJsonMap = new HashMap<>();
         resultJsonMap.put("result", result);
         return resultJsonMap;
     }
@@ -70,10 +72,14 @@ public class ApiUserController {
         if(file.isEmpty()){
             resultJsonMap.put("result", "fileEmpty");
         }else{
-            boolean uploadResult = imgService.tryImgUpload(file, email);
-            if(uploadResult){
+            String[] uploadResult = imgService.tryImgUpload(file, email);
+            if(uploadResult[0].equals("true")){
+                resultJsonMap.put("path", uploadResult[1]);
                 resultJsonMap.put("result", "true");
-            }else{
+            } else if (uploadResult[0].equals("noGPS")) {
+                resultJsonMap.put("path", uploadResult[1]);
+                resultJsonMap.put("result", "noGPS");
+            } else{
                 resultJsonMap.put("result", "false");
             }
         }

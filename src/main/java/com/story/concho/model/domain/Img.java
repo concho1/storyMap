@@ -1,9 +1,6 @@
 package com.story.concho.model.domain;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -13,8 +10,9 @@ import lombok.Setter;
 @Table(name="img_table") // 테이블 이름은 user
 public class Img {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="img_id")
-    int id;
+    Integer id;
     @Column(name="img_email")
     String email;
     @Column(name="img_latitude")

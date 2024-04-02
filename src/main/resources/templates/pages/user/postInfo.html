@@ -1,0 +1,797 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="imagetoolbar" content="no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="title" content="지도위의 스토리">
+    <meta name="description" content="지도위에 자신만의 스토리를 남겨보세요!">
+    <meta name="keywords" content="지도,스토리,갤러리">
+    <meta property="og:title" content="지도위의 스토리">
+    <meta property="og:description" content="지도위에 자신만의 스토리를 남겨보세요!">
+    <meta property="og:image" content="https://drive.google.com/thumbnail?id=1bHpAQGFz9WTw6LW5U8TCVgew1M9hqYsK&sz=w1080">
+    <meta property="og:url" content="https://웹사이트">
+    <title>지도위의 스토리 홈 | web갤러리</title>
+    <script th:inline="javascript">
+        let message = /*[[${message}]]*/ null;
+        if (message) {
+            alert(message);
+        }
+    </script>
+    <style>
+        .custom-form {
+            width: 99%;
+            margin-right: 2vw;
+        }
+
+        .textarea-container {
+            height: 40vh;
+        }
+
+        .textarea-full {
+            height: 100%;
+            width: 100%;
+        }
+
+        .custom-figure {
+            width: 30vw;
+        }
+        .custom-span{
+            margin-bottom: 3rem;
+        }
+
+        /* 모바일 화면에서 적용될 스타일 */
+        @media (max-width: 992px) {
+
+            .custom-form {
+                margin-left: 1%;
+                margin-top: 3rem;
+                width: 99%;
+            }
+        }
+    </style>
+    <style>
+        .comment-section {
+            width: 80%; /* 화면 너비의 80% 차지 */
+            margin: 20px auto; /* 상하 20px, 좌우 자동 마진으로 중앙 정렬 */
+            font-family: 'Arial', sans-serif;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* 박스 그림자 추가 */
+        }
+
+        .comment-form {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 20px;
+        }
+
+        .comment-form textarea {
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            resize: vertical; /* 사용자가 높이 조절 가능 */
+        }
+
+        .comment-form button {
+            align-self: flex-end;
+            padding: 10px 20px;
+            background-color: #B3E0FF; /* 하늘색으로 변경 */
+            color: #333;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s; /* 부드러운 색상 변화 효과 */
+        }
+
+        .comment-form button:hover {
+            background-color: #009ACD; /* 버튼 호버 시 색상 변경 */
+        }
+
+        .comments .comment {
+            margin-bottom: 15px;
+            padding: 10px;
+            background-color: #f9f9f9;
+            border-radius: 5px;
+        }
+
+        .comments .comment .comment-info {
+            font-size: 1.2rem;
+            color: #666;
+            margin-bottom: 5px;
+        }
+
+        .comments .comment .comment-author,
+        .comments .comment .comment-time,
+        .comments .comment .comment-likes {
+            margin-right: 10px;
+        }
+
+        .comments .comment .comment-text {
+            margin-top: 5px;
+        }
+
+        /* 모바일 환경 대응 */
+        @media (max-width: 992px) {
+            .comment-section {
+                width: 95%; /* 모바일 환경에서는 너비를 95%로 조정 */
+                margin: 10px auto; /* 상하 마진 축소 */
+            }
+
+            .comment-form button {
+                padding: 8px 16px; /* 모바일 환경에서 버튼 크기 조정 */
+            }
+
+        }
+
+
+
+        .action-buttons {
+            display: flex;
+            justify-content: center; /* 버튼을 중앙 정렬 */
+            gap: 10px; /* 버튼 사이의 간격 */
+        }
+
+        .action-btn {
+            padding: 10px 20px; /* 패딩 설정 */
+            border: none; /* 테두리 제거 */
+            border-radius: 5px; /* 테두리 둥글게 */
+            background-color: #B3E0FF; /* 연한 하늘색 배경 */
+            color: #333; /* 글자 색상 */
+            cursor: pointer; /* 마우스 오버 시 커서 변경 */
+            transition: background-color 0.3s; /* 배경색 변경 시 애니메이션 효과 */
+        }
+
+        .action-btn:hover {
+            background-color: #99ccff; /* 버튼 호버 시 배경색 변경 */
+        }
+
+        .custom-span {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            max-width: 100%;
+        }
+
+        .custom-span span{
+            flex: 1; /* 모든 항목이 동일한 너비를 가지도록 설정 */
+            text-align: center; /* 텍스트 중앙 정렬 */
+        }
+
+        .like-button {
+            margin-left: 3rem;
+            padding: 5px 10px;
+            width: 5rem;
+            background-color: #ffb1b1;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .like-button1 {
+            width: 2rem;
+            height: fit-content;
+            background-color: #ffb7b7;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .reply-button {
+            margin-left: 1rem;
+            width: 2rem;
+            height: fit-content;
+            background-color: #B3E0FF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .like-button:hover {
+            background-color: #ffa6a6;
+        }
+
+        /* 웹킷 기반 브라우저용 (Chrome, Safari 등) */
+        textarea::-webkit-scrollbar {
+            display: none;
+        }
+
+        /* 파이어폭스용 */
+        textarea {
+            scrollbar-width: none;
+        }
+
+        /* IE 및 엣지 브라우저용 */
+        textarea {
+            -ms-overflow-style: none;
+        }
+
+        .reply-form {
+            display: flex; /* 초기 상태는 숨김 */
+            margin-top: 10px; /* 상단 여백 */
+        }
+
+        .reply-text {
+            width: 60%; /* 너비 설정 */
+            height: 80px; /* 높이 설정 */
+            margin-bottom: 10px; /* 하단 여백 */
+            padding: 10px; /* 내부 여백 */
+            border: 1px solid #ccc; /* 테두리 */
+            border-radius: 5px; /* 테두리 둥글게 */
+            resize: none; /* 크기 조절 비활성화 */
+        }
+
+        .reply-form button {
+            margin-left: 1rem;
+            margin-top: 4.7rem;
+            height: 3rem;
+            margin-bottom: 10px;
+            padding: 5px 10px; /* 패딩 */
+            border: none; /* 테두리 없음 */
+            border-radius: 5px; /* 테두리 둥글게 */
+            cursor: pointer; /* 커서 모양 */
+            margin-right: 0; /* 오른쪽 여백 */
+        }
+
+        .cancel-reply {
+            background-color: #B3E0FF; /* 취소 버튼 색상 */
+            color: #333; /* 글자 색상 */
+        }
+
+        .delete-button {
+            margin-left: 1rem;
+            width: 2rem;
+            height: fit-content;
+            background-color: #B3E0FF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .submit-reply {
+            background-color: #B3E0FF; /* 답글 달기 버튼 색상 */
+            color: #333; /* 글자 색상 */
+        }
+        .reply-text-main {
+            width: 80%; /* 너비 설정 */
+            height: 80px; /* 높이 설정 */
+            margin-bottom: 10px; /* 하단 여백 */
+            padding: 10px; /* 내부 여백 */
+            border: 1px solid #ccc; /* 테두리 */
+            border-radius: 5px; /* 테두리 둥글게 */
+            resize: none; /* 크기 조절 비활성화 */
+        }
+
+        /* 모바일 환경 대응 */
+        @media (max-width: 992px) {
+            .reply-form button {
+                margin-top: 1px;
+            }
+            .reply-form {
+                display: none; /* 초기 상태는 숨김 */
+                margin-top: 10px; /* 상단 여백 */
+            }
+            .reply-text {
+                width: 95%; /* 모바일에서는 너비를 100%로 조정 */
+            }
+            .reply-text-main {
+                width: 95%; /* 모바일에서는 너비를 100%로 조정 */
+            }
+        }
+    </style>
+    <script
+            src="https://code.jquery.com/jquery-3.7.1.js"
+            integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
+            crossorigin="anonymous">
+    </script>
+    <link rel="stylesheet" th:href="@{/css/setting.css}">
+    <link rel="stylesheet" th:href="@{/css/plugin.css}" >
+    <link rel="stylesheet" th:href="@{/css/template.css}">
+    <link rel="stylesheet" th:href="@{/css/common.css}">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <script defer th:src="@{/js/setting.js}"></script>
+    <script defer th:src="@{/js/plugin.js}"></script>
+    <script defer th:src="@{/js/template.js}"></script>
+    <script defer th:src="@{/js/common.js}"></script>
+    <script defer th:src="@{/js/script.js}"></script>
+</head>
+
+<body>
+<!-- [S]basic-N1 -->
+<div class="basic-N1" data-bid="JGLtnz86LK" id="1">
+    <div class="header-dim"></div>
+</div>
+<!-- [E]basic-N1 -->
+<main class="th-layout-main ">
+    <!-- [S]basic-N2 -->
+    <div class="basic-N2" data-bid="pyltTX4eYW" id="2">
+        <div class="header-dim"></div>
+    </div>
+    <!-- [E]basic-N2 -->
+    <!-- [S]basic-N2 -->
+    <div class="basic-N2" data-bid="mJlTO0bNv0" id="3">
+        <div class="header-inner">
+            <div class="header-container container-lg">
+                <h1 class="header-title">
+                    <a href="javascript:void(0)">
+                        <img th:src="@{/medias/eb6c144c41554aaeb51944c04bdfcd45.png}" alt="" class="">
+                    </a>
+                </h1>
+                <div class="header-right">
+                    <div class="header-title header-mobile-top">
+                        <a href="javascript:void(0)">
+                            <img th:src="@{/medias/eb6c144c41554aaeb51944c04bdfcd45.png}" alt="">
+                        </a>
+                    </div>
+                    <ul class="header-gnblist">
+                        <li class="header-gnbitem">
+                            <a class="header-gnblink" th:href="@{/user/home}">
+                                <span>스토리 홈</span>
+                            </a>
+                        </li>
+                        <li class="header-gnbitem">
+                            <a class="header-gnblink" th:href="@{/user/gallery}">
+                                <span>스토리 갤러리</span>
+                            </a>
+                        </li>
+                        <li class="header-gnbitem">
+                            <a class="header-gnblink" th:href="@{/user/map}">
+                                <span>스토리 지도</span>
+                            </a>
+                        </li>
+                        <li class="header-gnbitem">
+                            <a class="header-gnblink" th:href="@{/user/forum}">
+                                <span>스토리 게시판</span>
+                            </a>
+                        </li>
+                        <li class="header-gnbitem">
+                            <a class="header-gnblink" th:href="@{/user/log-out}" onclick="return confirmLogout('로그아웃하시겠습니까?')">
+                                <span>로그아웃</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="header-utils">
+                    <button class="btn-momenu">
+                        <img th:src="@{/icons/ico_menu_black.svg}" alt="모바일메뉴 아이콘">
+                    </button>
+                    <button class="btn-close">
+                        <img th:src="@{/icons/ico_close_black.svg}" alt="닫기 아이콘">
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="header-dim"></div>
+    </div>
+    <!-- [E]basic-N2 -->
+    <!-- [S]basic-N12 -->
+    <div class="basic-N12" data-bid="CRLTNqSm6O" id="4">
+        <div class="contents-inner">
+            <div class="contents-container container-md">
+                <div class="contents-group">
+                    <div class="cardset cardset-hor cardset-hor-reverse">
+                        <figure class="cardset-figure custom-figure">
+                            <img class="cardset-img" th:src="@{${post.getPath()}}" alt="">
+                        </figure>
+                        <form class="form-group form-line custom-form" action="#" th:action="@{/user/update-post}" method="post" th:object="${post}">
+                            <div class="custom-span">
+                                작성자 : <span th:text="${nickName}"></span>&nbsp;&nbsp;&nbsp;
+                                조회수 : <span th:text="*{viewCount}"></span>&nbsp;&nbsp;&nbsp;
+                            </div>
+                            <div class="custom-span">
+                                댓글수 : <span th:text="*{commentCount}"></span>&nbsp;&nbsp;&nbsp;
+                                좋아요 : <span id="likeCnt"  th:text="*{likeCount}"></span>&nbsp;&nbsp;&nbsp;
+                                <button id="mainLike" type="button" class="like-button">&#129505;️</button>
+                            </div>
+
+                            <div class="inputset inputset-line inputset-lg inputset-label">
+                                <label>
+                                    <span class="inputset-tit">제목</span>
+
+                                    <input readonly th:field="*{title}" name="name_input" type="text" class="inputset-input form-control" placeholder="닉네임을 입력해주세요." aria-label="내용" required="">
+                                </label>
+                            </div>
+                            <div class="inputset inputset-line inputset-lg inputset-label">
+                                <label>
+                                    <span class="inputset-tit">내용</span>
+                                </label>
+                            </div>
+                            <div class="textarea-container">
+                                <textarea disabled th:field="*{content}" name="mick_name_input" class="textarea-full" placeholder="이름을 입력해주세요." aria-label="내용" required="">
+                                </textarea>
+                            </div>
+                            <div class="inputset inputset-line inputset-lg inputset-label">
+                            </div>
+                            <div class="form-btn">
+                                <button class="action-btn" type="button" onclick="goToListPage()">뒤로가기</button>
+                                <button class="action-btn" type="button" onclick="mainReplyUp()">댓글쓰기</button>
+                                <button id="updateBtn" class="action-btn" type="button" onclick="goToUpdate()">수정하기</button>
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+                <div class="comment-section" >
+
+                    <!-- 대댓글 입력 창 (초기에는 숨김)  -->
+                    <div class="reply-form" id="mainReply" style="display:none;">
+                        <textarea class="reply-text-main"></textarea>
+                        <button id="hideComment" class="cancel-reply">취소</button>
+                        <button id="submitComment" class="submit-reply" type="button" onclick="mainReply()">답글 달기</button>
+                    </div>
+
+                    <div class="comments" th:if="${!replyList.isEmpty()}" >
+                        <div class="comment" th:each="reply : ${replyList}"
+                             th:style="'margin-left:' + (${reply.replyDepth} * 3) + 'vw;'" th:data-depth="${reply.getReplyDepth()}">
+                            <div class="comment-info">
+                                <span hidden="hidden" id="replyId" th:text="${reply.getReplyId()}"></span>
+                                <span class="comment-author" th:text="|작성자: ${reply.getNickName()}|"></span>
+                                <span class="comment-time" th:text="|작성일: ${reply.getReplyDate()}|"></span>
+                                <span class="comment-likes">추천수: <span class="likes-count" th:text="${reply.getReplyLikesCount()}"></span></span>
+                                <button class="like-button1">&#129505;️</button>
+                                <button class="reply-button">&#128172;</button>
+                                <button class="delete-button">&#10060;</button>
+                            </div>
+                            <p class="comment-text" th:text="${reply.getReplyContent()}"></p>
+                            <!-- 대댓글 입력 창 (초기에는 숨김) -->
+                            <div class="reply-form" style="display:none;">
+                                <textarea class="reply-text"></textarea>
+                                <button class="cancel-reply">취소</button>
+                                <button class="submit-reply">답글 달기</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="comments" th:if="${replyList.isEmpty()}" >
+                        <div class="comment">
+                            <div class="comment-info">
+                                <span class="comment-author"></span>
+                                <span class="comment-time"></span>
+                                <span class="comment-likes"><span></span></span>
+                                <button hidden="hidden" class="like-button1">️</button>
+                                <button hidden="hidden" class="reply-button"></button>
+                            </div>
+                            <p class="comment-text">댓글을 달아주세요!</p>
+                            <!-- 대댓글 입력 창 (초기에는 숨김) -->
+                            <div class="reply-form" style="display:none;">
+                                <textarea class="reply-text"></textarea>
+                                <button class="cancel-reply">취소</button>
+                                <button class="submit-reply">답글 달기</button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- [E]basic-N7 -->
+</main>
+
+
+<div style="height: 20vh">
+
+</div>
+<!-- [S]basic-N4 -->
+<div class="basic-N4" data-bid="BSlTNQT2kg" id="">
+    <div class="footer-container container-lg">
+        <div class="footer-top">
+            <h1 class="footer-logo">
+            </h1>
+            <ul class="footer-menulist">
+                <li class="footer-menuitem">
+                    <a href="javascript:void(0)">
+                        <span>지도위의 스토리</span>
+                    </a>
+                </li>
+                <li class="footer-menuitem">
+                    <a href="javascript:void(0)">
+                        <span>개인정보처리방침</span>
+                    </a>
+                </li>
+                <li class="footer-menuitem">
+                </li>
+                <li class="footer-menuitem">
+                </li>
+            </ul>
+            <ul class="footer-snslist">
+                <li class="footer-snsitem">
+                </li>
+                <li class="footer-snsitem">
+                </li>
+                <li class="footer-snsitem">
+                </li>
+                <li class="footer-snsitem">
+                    <a class="footer-snslink" href="javascript:void(0)">
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="footer-bottom">
+            <div class="footer-txt">
+                <p>Concho 서울, 성남 근무 가능</p>
+                <p>
+                    <span>T. 추가 예정</span>
+                    <span>E. 추가 예정.</span>
+                </p>
+            </div>
+            <div class="footer-txt">
+                <p>2024 MADE BY Concho</p>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- [E]basic-N4 -->
+</body>
+<script th:inline="javascript">
+    function goToListPage(){
+        let pageNum = /*[[${pageNum}]]*/ 0;
+        location.href='/user/forum?page='+pageNum;
+    }
+    function goToUpdate() {
+        let postId = /*[[${post.id}]]*/ 0;
+        let pageNum = /*[[${pageNum}]]*/ 0;
+        location.href='/user/update-post?postId='+postId + '&pageNum='+pageNum;
+    }
+</script>
+<script th:inline="javascript">
+    let nickName = /*[[${nickName}]]*/ null;
+    let forumId = /*[[${post.getId()}]]*/ null;
+    let userNickName = /*[[${userNickName}]]*/ null;
+
+    function mainReplyUp(){
+        $('#mainReply').toggle();
+    }
+    function mainReply (){
+        if(userNickName){
+            let comment = $('.reply-text-main'); // 수정된 선택자
+            let commentText = comment.val().trim();
+
+            if (commentText === '') {
+                alert('댓글을 입력하세요.');
+                return;
+            }
+
+            $.ajax({
+                url: '/user/create-reply',
+                type: 'POST',
+                contentType : 'application/json',
+                data: JSON.stringify({
+                    "nickName" : userNickName,
+                    "forumId" : forumId,
+                    "replyContent" : commentText,
+                    "replyDepth" : 0,
+                    "replyStep" : 0
+                }),
+                async : false,
+                success: function (response) {
+                    if(response.result === "true"){
+                        let newComment = `
+                            <div class="comment">
+                              <div class="comment-info">
+                                <span hidden="hidden" id="replyId">${response.replyId}</span>
+                                <span class="comment-author">작성자: ${userNickName}</span>
+                                <span class="comment-time">시간: 방금 전</span>
+                                <span class="comment-likes">추천수: 0</span>
+                                <button class="like-button1">&#129505;️</button>
+                                <button class="reply-button">&#128172;</button>
+                                <button class="delete-button">&#10060;</button>
+                              </div>
+                              <p class="comment-text">${commentText}</p>
+                            </div>
+                          `;
+
+                        $('.comments').prepend(newComment);
+
+                        // 입력 필드 초기화
+                        comment.val('');
+                    }else{
+                        alert('댓글 등록 실패 ㅠㅠ (서버 오류)');
+                    }
+                },
+                error : (error) => {console.log(error)}
+            });
+
+
+        }
+    }
+    $(document).ready(() =>{
+        let comments = $('.comments');
+
+        comments.on('click', '.submit-reply', function() {
+            let $replyForm = $(this).closest('.reply-form');
+            let currentComment = $replyForm.closest('.comment');
+            let commentText = $replyForm.find('.reply-text').val().trim();
+
+            if (commentText === '') {
+                alert('댓글을 입력하세요.');
+                return;
+            }
+
+            // 대댓글의 깊이 확인
+            let depth = parseInt(currentComment.attr('data-depth') || 0) + 1;
+            if (depth > 3) {
+                alert('더 이상 답글을 달 수 없습니다.');
+                return;
+            }
+            // 마진 값 조정
+            let marginLeft = 3* depth;
+
+            // '.comments' 컨테이너 내에서 'currentComment'의 인덱스 구하기
+            let index = $('.comments .comment').index(currentComment) +1;
+            //alert("현재 댓글은 " + (index) + "번째 댓글입니다.");
+            console.log(userNickName);
+
+            $.ajax({
+                url: '/user/create-reply',
+                type: 'POST',
+                contentType : 'application/json',
+                data: JSON.stringify({
+                    "nickName" : userNickName,
+                    "forumId" : forumId,
+                    "replyContent" : commentText,
+                    "replyDepth" : depth,
+                    "replyStep" : index
+                }),
+                async : false,
+                success: function (response) {
+                    console.log(userNickName);
+                    console.log(forumId);
+                    console.log(commentText);
+                    console.log(depth);
+                    console.log(index);
+
+                    let newComment = `
+                        <div class="comment" data-depth="${depth}" style="margin-left: ${marginLeft}vw;">
+                            <div class="comment-info">
+                                <span hidden="hidden" id="replyId">${response.replyId}</span>
+                                <span class="comment-author">작성자: ${userNickName}</span>
+                                <span class="comment-time">시간: 방금 전</span>
+                                <span class="comment-likes">추천수: <span class="likes-count">0</span></span>
+                                <button class="like-button1">&#129505;️</button>
+                                <button class="reply-button">&#128172;</button>
+                            </div>
+                            <p class="comment-text">${commentText}</p>
+                        </div>
+                    `;
+
+                    // 대댓글 추가
+                    currentComment.closest('.comment').after(newComment);
+
+                    // 대댓글 입력 창 숨김 및 초기화
+                    $replyForm.hide();
+                    $replyForm.find('.reply-text').val('');
+                },
+                error : (error) => {console.log(error)}
+            });
+        });
+
+        if(userNickName !== nickName){
+            $('#updateBtn').hide();
+        }
+
+        $('#mainLike').click(function () {
+            // 이 버튼이 이미 클릭되었는지 확인
+            if ($(this).data('clicked')) {
+                alert('좋아요는 한번만 눌러주세요!');
+                // 이미 클릭되었다면, 함수를 여기서 종료
+                return;
+            }
+            // 클릭되지 않았다면, 클릭 상태를 true로 설정
+            $(this).data('clicked', true);
+
+            //siblings => 형제 요소 찾기
+            let likesCountSpan = $(this).siblings('#likeCnt');
+            let likesCount = parseInt(likesCountSpan.text(), 10);
+
+            $.ajax({
+                url: '/user/increase-post-like',
+                type: 'POST',
+                data: {
+                    forumId : forumId
+                },
+                async : false,
+                success: function (response) {
+                    likesCountSpan.text(likesCount + 1); // 추천수 증가
+                },
+                error : () => {
+                    alert('서버 오류');
+                }
+            });
+
+
+        });
+
+
+        // "좋아요" 버튼 클릭 이벤트
+        comments.on('click', '.like-button1', function() {
+            // 이 버튼이 이미 클릭되었는지 확인
+            if ($(this).data('clicked')) {
+                alert('좋아요는 한번만 눌러주세요!');
+                // 이미 클릭되었다면, 함수를 여기서 종료
+                return;
+            }
+            // 클릭되지 않았다면, 클릭 상태를 true로 설정
+            $(this).data('clicked', true);
+
+
+            let likesCountSpan = $(this).siblings('.comment-likes').find('.likes-count');
+            let likesCount = parseInt(likesCountSpan.text(), 10);
+
+            //
+            let replyId = $(this).siblings('#replyId').text();
+
+            $.ajax({
+                url: '/user/increase-reply-like',
+                type: 'POST',
+                data: {
+                    replyId : replyId
+                },
+                async : false,
+                success: function (response) {
+                    likesCountSpan.text(likesCount + 1); // 추천수 증가
+                },
+                error : () => {
+                    alert('서버 오류');
+                }
+            });
+
+
+        });
+
+        // "답글 달기" 버튼 클릭 이벤트
+        comments.on('click', '.reply-button', function() {
+            $(this).closest('.comment').find('.reply-form').toggle(); // 대댓글 입력 창 표시
+        });
+
+        // "취소" 버튼 클릭 이벤트
+        comments.on('click', '.cancel-reply', function() {
+            $(this).closest('.reply-form').hide(); // 대댓글 입력 창 숨김
+        });
+
+        $('#hideComment').click(function (){
+            $('#mainReply').hide();
+        });
+
+        // "취소" 버튼 클릭 이벤트
+        comments.on('click', '.delete-button', function() {
+            let replyIdObj = $(this).siblings('#replyId');
+            console.log(replyIdObj.text());
+            let replyId = replyIdObj.text();
+            $.ajax({
+                url: '/user/delete-reply',
+                type: 'POST',
+                data: {
+                    replyId : replyId
+                },
+                async : false,
+                success: function (response) {
+                    if(response){
+                        alert('삭제 성공');
+                        location.reload();
+                    }else{
+                        alert('작성자만 삭제할 수 있습니다.');
+                    }
+
+                },
+                error : () => {
+                    alert('서버 오류');
+                }
+            });
+
+        });
+
+    });
+
+</script>
+</html>
