@@ -98,6 +98,5 @@ CREATE TABLE forum_table
 
 
 
-todo list
-2. 이미지 업로드시 gps정보 [wgs84 좌표] => utm-k 변환 db 저장 구현하기 ==> sgis api 에서 제공해 줌
-
+배포 완료!!!!!!!!!!!!!!!!!!!
+배포 완료!!!!!!!!!!!!!!!!!!!
