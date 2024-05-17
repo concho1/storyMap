@@ -348,8 +348,8 @@ body.body-scroll { overflow: hidden; }
  
 /* ========== */
 /* imageset : imageset */
-.imageset { position: relative; width: 100%; height: 46rem; border-radius: 2rem; overflow: hidden; } 
-.imageset-img { width: 100%; height: 100%; object-fit: cover; } 
+.imageset { position: relative; width: 100%; height: 46rem; border-radius: 2rem; overflow: hidden; }
+.imageset-img { width: 100%; height: 100%; object-fit: cover; }
 
 /* ========== */
 /* Button : Btnset */

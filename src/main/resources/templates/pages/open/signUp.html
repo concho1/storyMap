@@ -15,6 +15,32 @@
   <meta property="og:image" content="https://drive.google.com/thumbnail?id=1bHpAQGFz9WTw6LW5U8TCVgew1M9hqYsK&sz=w1080">
   <meta property="og:url" content="https://웹사이트">
   <title>회원가입 페이지 | web갤러리</title>
+  <script
+          src="https://code.jquery.com/jquery-3.7.1.js"
+          integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
+          crossorigin="anonymous">
+  </script>
+  <link
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+          crossorigin="anonymous">
+
+  <script
+          src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+          integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+          crossorigin="anonymous">
+  </script>
+  <script>
+    $(document).ready(function() {
+      // "저장" 버튼을 클릭하면 선택한 날짜를 입력 필드에 설정합니다.
+      $('#saveDate').click(function() {
+        var selectedDate = $('#datePicker').val();
+        $('#ageInput').val(selectedDate);
+        $('#ageModal').modal('hide');
+      });
+    });
+  </script>
   <script th:inline="javascript">
     /*<![CDATA[*/
     var message = /*[[${message}]]*/ null;
@@ -35,6 +61,27 @@
   <script defer th:src="@{/js/common.js}"></script>
   <script defer th:src="@{/js/script.js}"></script>
   <script defer th:src="@{/jsMy/sign_in.js}"></script>
+  <style>
+    .custom-input, .btn {
+      font-size: 1.5rem; /* 기본 글씨 크기를 늘립니다. */
+    }
+
+    #ageModal .modal-content {
+      font-size: 2rem; /* 모달 창 내의 글씨 크기를 늘립니다. */
+    }
+    #datePicker{
+      font-size: 2rem;
+    }
+    #pwInput2{
+      margin-top: 0;
+    }
+    #pw_match_status{
+      font-size: 1.5rem;
+    }
+    #pw_length_status{
+      font-size: 1.5rem;
+    }
+  </style>
 </head>
 
 <body>
@@ -97,14 +144,14 @@
           <div class="imageset">
             <img class="imageset-img" th:src="@{https://images.pexels.com/photos/20446158/pexels-photo-20446158.jpeg}" alt="">
           </div>
-          <form action="#" th:action="@{/user/sign-up}" method="post" th:object="${user}" class="form-group form-line">
+          <form id="signupForm" action="#" th:action="@{/user/sign-up}" method="post" th:object="${user}" class="form-group form-line">
             <div class="inputset inputset-line inputset-lg inputset-label">
               <label>
                 <span class="inputset-tit">아이디(E-mail)
                   <!-- event -->
                   <a id="id_check" href="#">
                     <span>*</span>
-                    <small>아이디 중복확인</small>
+                    <small>이메일 인증하기</small>
                     <span>*</span>
                   </a>
                 </span>
@@ -120,14 +167,17 @@
                     <span>*</span>
                   </a>
                 </span>
+                <h6 id="pw_match_status"></h6>
+                <h6 id="pw_length_status"></h6>
                 <input id="pwInput" th:field="*{pw}" name="password_input" type="password"  class="inputset-input form-control" placeholder="5자리 이상 20자리 이하" aria-label="내용" required="">
+                <input id="pwInput2" name="password_input2" type="password"  class="inputset-input form-control" placeholder="비밀번호 재입력" aria-label="내용" required="">
               </label>
             </div>
             <div class="inputset inputset-line inputset-lg inputset-label">
               <label>
                 <span class="inputset-tit">닉네임<span>*</span>
                 </span>
-                <input th:field="*{nickname}" name="name_input" type="text" class="inputset-input form-control" placeholder="닉네임을 입력해주세요." aria-label="내용" required="">
+                <input id="nickname" th:field="*{nickname}" name="name_input" type="text" class="inputset-input form-control" placeholder="닉네임을 입력해주세요." aria-label="내용" required="">
               </label>
             </div>
             <div class="inputset inputset-line inputset-lg inputset-label">
@@ -137,12 +187,22 @@
                 <input th:field="*{name}" name="mick_name_input" type="text" class="inputset-input form-control" placeholder="이름을 입력해주세요." aria-label="내용" required="">
               </label>
             </div>
+            <!--
             <div class="inputset inputset-line inputset-lg inputset-label">
               <label>
-                <span class="inputset-tit">나이<span>*</span>
-                </span>
+                <span class="inputset-tit">나이<span>*</span></span>
+
                 <input th:field="*{age}" name="mick_name_input" type="text" class="inputset-input form-control" placeholder="나이를 입력해주세요." aria-label="내용" required="">
               </label>
+            </div>
+            -->
+            <!-- 나이 입력 필드 -->
+            <!-- 나이 입력 필드와 모달 열기 버튼 -->
+            <div class="inputset inputset-line inputset-lg inputset-label">
+              <div class="input-group mb-3">
+                <input type="text" th:field="*{age}" class="form-control custom-input" placeholder="생년월일을 선택해주세요" id="ageInput" aria-label="Age" aria-describedby="age-addon" readonly>
+                <button class="btn btn-outline-secondary" type="button" id="age-addon" data-bs-toggle="modal" data-bs-target="#ageModal">생년월일 선택</button>
+              </div>
             </div>
             <div class="contents-check">
               <span class="form-tit" contenteditable="true">성별<span>*</span>
@@ -234,3 +294,25 @@
     </div>
   </div>
 </body>
+<!-- 모달 창 (크기를 'lg'로 설정) -->
+<div class="modal fade" id="ageModal" tabindex="-1" aria-labelledby="ageModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="ageModalLabel">생년월일 선택</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <label>
+          <input type="date" id="datePicker" class="form-control">
+        </label>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+        <button type="button" class="btn btn-outline-secondary" id="saveDate">저장</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+</html>

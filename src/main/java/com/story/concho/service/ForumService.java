@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -21,16 +22,16 @@ import java.util.Optional;
 
 @Service
 public class ForumService {
-    private final UserRepository userRepository;
-    private final ImgRepository imgRepository;
+    private final AwsS3Service awsS3Service;
+    private final ImgService imgService;
     private final ForumRepository forumRepository;
     private final ReplyRepository replyRepository;
 
     // 의존성 주입
     @Autowired
-    public ForumService(UserRepository userRepository, ImgRepository imgRepository, ForumRepository forumRepository, ReplyRepository replyRepository){
-        this.userRepository = userRepository;
-        this.imgRepository = imgRepository;
+    public ForumService(AwsS3Service awsS3Service, ImgService imgService, ForumRepository forumRepository, ReplyRepository replyRepository){
+        this.awsS3Service = awsS3Service;
+        this.imgService = imgService;
         this.forumRepository = forumRepository;
         this.replyRepository = replyRepository;
     }
@@ -46,7 +47,9 @@ public class ForumService {
             // 현재 날짜와 시간을 가져옵니다.
             LocalDateTime now = LocalDateTime.now();
             post.setDate(now);
-
+            if(post.getFileKey().isEmpty()){
+                post.setFileKey("story/nomal_1234.png");
+            }
             forumRepository.save(post);
             return true;
         }catch (Exception e){
@@ -59,6 +62,13 @@ public class ForumService {
         PageRequest pageRequest = PageRequest.of(pageNum, size);
         Page<Post> postPages = forumRepository.findPageForumPosts(pageRequest);
         List<Post> postList = postPages.getContent();
+
+        for(Post post : postList){
+            post.setPath(
+                awsS3Service.getUrl(post.getFileKey())
+            );
+        }
+
         return  postList;
     }
 
@@ -74,6 +84,13 @@ public class ForumService {
 
     public Optional<Post> getPostById(int id){
         Optional<Post> postOptional = forumRepository.findById(id);
+        if(postOptional.isPresent()){
+            Post post = postOptional.get();
+            post.setPath(
+                    awsS3Service.getUrl(post.getFileKey())
+            );
+            postOptional = Optional.of(post);
+        }
         return  postOptional;
     }
 
@@ -102,6 +119,7 @@ public class ForumService {
     }
 
     // 게시판 id로 글 삭제(댓글까지)
+    @Transactional
     public void deletePostById(int forumId) {
         replyRepository.deleteAllByForumId(forumId);
         forumRepository.deleteById(forumId);

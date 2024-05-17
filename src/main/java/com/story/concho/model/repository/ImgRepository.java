@@ -21,4 +21,8 @@ public interface ImgRepository extends CrudRepository<Img, Integer> {
 
     long countByEmail(String email);
 
+    Optional<Img> findImgByNameAndEmail(String name, String email);
+
+    Optional<Img> findImgByName(String name);
+
 }

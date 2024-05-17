@@ -31,12 +31,13 @@ public class Post {
     private int likeCount;
     @Column(name="forum_img_path")
     private String path;
-
+    @Column(name="file_key")
+    private String fileKey;
 
     public Post() {
 
     }
-    public Post(String title, String content, String authorEmail, int viewCount, int commentCount, int likeCount, String path) {
+    public Post(String title, String content, String authorEmail, int viewCount, int commentCount, int likeCount, String path, String fileKey) {
         this.title = title;
         this.content = content;
         this.authorEmail = authorEmail;
@@ -44,5 +45,6 @@ public class Post {
         this.commentCount = commentCount;
         this.likeCount = likeCount;
         this.path = path;
+        this.fileKey = fileKey;
     }
 }

@@ -121,8 +121,9 @@
             <div class="img-upload">
               <input type="file" id="fileInput" multiple>
               <small>업로드 한 이미지 : </small>&nbsp;&nbsp;
-              <span id="selectImg">기본 이미지</span>
+              <img id="selectImg" style="width: 15rem; height: 15rem" src="" alt="기본 이미지">
             </div>
+            <input id="fileKey" th:field="*{fileKey}" type="hidden">
             <input id="imgPath" th:field="*{path}" type="hidden">
             <div class="inputset inputset-lg inputset-label">
               <label>

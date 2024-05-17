@@ -12,7 +12,9 @@ import java.util.List;
 public interface ReplyRepository extends CrudRepository<Reply, Integer> {
     List<Reply> findByForumIdOrderByReplyStepDescReplyDateDesc(int forumId);
     List<Reply> findByForumIdOrderByReplyStep(int forumId);
+
     void deleteAllByForumId(int forumId);
+
     @Modifying
     @Transactional
     @Query("UPDATE Reply r SET r.replyStep = r.replyStep + 1 WHERE r.forumId = :forumId")

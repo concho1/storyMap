@@ -21,9 +21,10 @@ import org.springframework.data.repository.CrudRepository;
 public interface UserRepository extends CrudRepository<User, String> {
     boolean existsByEmailAndPw(String email, String pw);
 
+    boolean existsByNickname(String nickName);
+
     @Query("SELECT u.nickname FROM User u WHERE u.email = ?1")
     String findNicknameByEmail(String email);
 
-    @Query("SELECT u.folderId FROM User u WHERE u.email = ?1")
-    String findFolderIdByEmail(String email);
+    int findImgCntByEmail(String email);
 }

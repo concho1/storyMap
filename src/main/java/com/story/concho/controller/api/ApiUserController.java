@@ -42,7 +42,7 @@ public class ApiUserController {
         imgService.deleteImg(id);
         return true;
     }
-    
+
     // 이메일 중복 확인 api
     @PostMapping("/email-duplication")
     public Map<String, Boolean> checkEmail(@RequestBody Map<String, String> jsonMap){
@@ -55,6 +55,13 @@ public class ApiUserController {
         HashMap<String, Boolean> resultJsonMap = new HashMap<>();
         resultJsonMap.put("result", result);
         return resultJsonMap;
+    }
+
+    // 닉네임 중복 확인 api
+    @CrossOrigin(origins = "*")
+    @PostMapping("/nickname-duplication")
+    public Boolean checkEmail(@RequestParam("nickname") String nickName){
+        return !userService.nickNameCheckOk(nickName);
     }
 
     @PostMapping("/upload-img")
@@ -73,12 +80,21 @@ public class ApiUserController {
             resultJsonMap.put("result", "fileEmpty");
         }else{
             String[] uploadResult = imgService.tryImgUpload(file, email);
+            if(uploadResult.length == 3){
+                if(uploadResult[2].equals("imgMax")){
+                    resultJsonMap.put("result", "imgMax");
+                    return resultJsonMap;
+                }
+            }
             if(uploadResult[0].equals("true")){
                 resultJsonMap.put("path", uploadResult[1]);
                 resultJsonMap.put("result", "true");
+                resultJsonMap.put("fileKey", uploadResult[2]);
+
             } else if (uploadResult[0].equals("noGPS")) {
                 resultJsonMap.put("path", uploadResult[1]);
                 resultJsonMap.put("result", "noGPS");
+                resultJsonMap.put("fileKey", uploadResult[2]);
             } else{
                 resultJsonMap.put("result", "false");
             }

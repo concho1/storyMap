@@ -147,13 +147,15 @@
 
                 <nav class="pagiset pagiset-line">
                     <div class="pagiset-ctrl">
-                        <a class="pagiset-link pagiset-first" th:href="@{/user/gallery(page=0)}">
+                        <a class="pagiset-link" th:href="@{/user/gallery(page=0)}">
+                            ◀◀
                             <span class="visually-hidden">처음</span>
                         </a>
                     </div>
                     <div class="pagiset-ctrl">
                         <!-- 타임리프의 js 호출 방법 -->
-                        <div id="prev" class="pagiset-link pagiset-prev">
+                        <div id="prev" class="pagiset-link">
+                            ◀
                             <span class="visually-hidden">이전</span>
                         </div>
                     </div>
@@ -161,12 +163,14 @@
                         <a class='pagiset-link active-fill' th:href="@{/user/gallery(page=${page})}"><span th:text="${page+1}"></span></a>
                     </div>
                     <div class="pagiset-ctrl">
-                        <div id="after" class="pagiset-link pagiset-next">
+                        <div id="after" class="pagiset-link">
+                            ▶
                             <span class="visually-hidden">다음</span>
                         </div>
                     </div>
                     <div class="pagiset-ctrl">
-                        <a class="pagiset-link pagiset-last" th:href="@{/user/gallery(page=${maxPage} - 1)}">
+                        <a class="pagiset-link" th:href="@{/user/gallery(page=${maxPage} - 1)}">
+                            ▶▶
                             <span class="visually-hidden">마지막</span>
                         </a>
                     </div>

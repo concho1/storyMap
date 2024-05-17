@@ -1,6 +1,7 @@
 package com.story.concho.controller.web.open;
 
 import com.story.concho.model.domain.User;
+import com.story.concho.service.EmailService;
 import com.story.concho.service.UserService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,10 +15,12 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @Controller
 public class SignInController {
     private final UserService userService;
+    private final EmailService emailService;
     // 생성자 의존성 주입
     @Autowired
-    public SignInController(UserService userService){
+    public SignInController(UserService userService, EmailService emailService){
         this.userService = userService;
+        this.emailService = emailService;
     }
 
     // 회원가입 폼 주기

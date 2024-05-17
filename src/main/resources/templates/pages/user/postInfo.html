@@ -294,6 +294,7 @@
             integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
             crossorigin="anonymous">
     </script>
+
     <link rel="stylesheet" th:href="@{/css/setting.css}">
     <link rel="stylesheet" th:href="@{/css/plugin.css}" >
     <link rel="stylesheet" th:href="@{/css/template.css}">
@@ -418,11 +419,9 @@
                                 <button id="updateBtn" class="action-btn" type="button" onclick="goToUpdate()">수정하기</button>
                             </div>
                         </form>
-
                     </div>
                 </div>
                 <div class="comment-section" >
-
                     <!-- 대댓글 입력 창 (초기에는 숨김)  -->
                     <div class="reply-form" id="mainReply" style="display:none;">
                         <textarea class="reply-text-main"></textarea>
@@ -576,6 +575,7 @@
                 async : false,
                 success: function (response) {
                     if(response.result === "true"){
+                        location.reload();
                         let newComment = `
                             <div class="comment">
                               <div class="comment-info">
@@ -650,7 +650,7 @@
                     console.log(commentText);
                     console.log(depth);
                     console.log(index);
-
+                    location.reload();
                     let newComment = `
                         <div class="comment" data-depth="${depth}" style="margin-left: ${marginLeft}vw;">
                             <div class="comment-info">

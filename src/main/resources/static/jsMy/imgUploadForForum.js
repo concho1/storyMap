@@ -19,11 +19,12 @@ $('#fileInput').change(function () {
                 } else if(data.result === "fileEmpty"){
                     alert("파일이 비었습니다!");
                 } else if (data.result === "true"|| data.result === "noGPS") {
-                    let fullPath = data.path;
-                    let fileName = fullPath.split('/').pop(); // 파일 이름 추출.
                     $('#imgPath').val(data.path);
-                    $('#selectImg').text(fileName);
+                    $('#fileKey').val(data.fileKey);
+                    $('#selectImg').attr('src',data.path);
                     alert("파일 업로드 성공!");
+                } else if(data.result === "imgMax"){
+                    alert("이미지 업로드 할당량 초과");
                 } else {
                     alert("파일 업로드 실패. 다시 시도해주세요.");
                 }

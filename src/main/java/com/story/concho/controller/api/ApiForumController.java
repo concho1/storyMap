@@ -1,6 +1,8 @@
 package com.story.concho.controller.api;
 
+import com.story.concho.model.domain.Post;
 import com.story.concho.model.domain.Reply;
+import com.story.concho.service.AwsS3Service;
 import com.story.concho.service.ForumService;
 import com.story.concho.service.ReplyService;
 import com.story.concho.service.UserService;
@@ -10,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 @RestController
 @RequestMapping(value = "/user")
@@ -17,12 +20,14 @@ public class ApiForumController {
     private final ForumService forumService;
     private final ReplyService replyService;
     private final UserService userService;
+    private final AwsS3Service awsS3Service;
 
     @Autowired
-    public ApiForumController(ForumService forumService, ReplyService replyService, UserService userService){
+    public ApiForumController(ForumService forumService, ReplyService replyService, UserService userService, AwsS3Service awsS3Service){
         this.forumService = forumService;
         this.replyService = replyService;
         this.userService = userService;
+        this.awsS3Service = awsS3Service;
     }
 
     // 게시판 좋아요 증가
@@ -109,7 +114,15 @@ public class ApiForumController {
                 return false;
             }
         }
-        forumService.deletePostById(postId);
+        Optional<Post> postOptional = forumService.getPostById(postId);
+        if(postOptional.isPresent()){
+            if(!postOptional.get().getFileKey().equals("story/nomal_1234.png")){
+                awsS3Service.deleteFile(postOptional.get().getFileKey());
+            }
+            forumService.deletePostById(postId);
+        }else{
+            return false;
+        }
         return true;
     }
 }

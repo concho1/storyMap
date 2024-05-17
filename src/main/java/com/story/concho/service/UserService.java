@@ -7,7 +7,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import java.io.File;
+import java.sql.Timestamp;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 /*
@@ -38,10 +40,12 @@ public class UserService {
     private String basePath;
 
     private final UserRepository userRepository;
+    private final EmailService emailService;
     // 의존성 주입
     @Autowired
-    public UserService(UserRepository userRepository){
+    public UserService(UserRepository userRepository, EmailService emailService){
         this.userRepository = userRepository;
+        this.emailService = emailService;
     }
 
     // email-pw 체크
@@ -50,9 +54,6 @@ public class UserService {
         pw = pw.trim();
         return userRepository.existsByEmailAndPw(email, pw);
     }
-
-    
-
     // email  체크
     public boolean emailCheckOk(String email){
         boolean emailCheckResult = userRepository.existsById(email);
@@ -70,41 +71,25 @@ public class UserService {
         return proxyMapJs;
     }
 
-    public boolean createUser(User user){
-        boolean createUserResult = false;
-        // 폴더 이름을 이메일에서 유효하지 않은 문자를 대체하여 생성
-        String folderName = user.getEmail().replaceAll("[^a-zA-Z0-9.-]", "_");
-        // 최종 경로
-        String path = basePath + folderName;
+    public boolean nickNameCheckOk(String nickName){
+        return userRepository.existsByNickname(nickName);
+    }
 
-        File folder = new File(path);
-        // 혹시 폴더가 없으면 생성
-        if(!folder.exists()){
-            if(folder.mkdirs()){// 성공시 true 반환
-                System.out.println("user 폴더 제작 완료 + user 추가 완료.");
-                createUserResult = true;
-            }else{
-                System.out.println("폴더 제작 실패");
-                return false;
-            }
-        }else{
-            createUserResult = true;
+    public boolean createUser(User user){
+        boolean createUserResult = true;
+
+        // 이메일 인증(토큰) 인증을 거친 회원가입인지 확인하는 과정
+        if(!emailService.checkTokenFlagByEmail(user.getEmail())){
+            return false;
         }
 
-        // 현재 날짜를 가져옵니다.
-        LocalDate now = LocalDate.now();
-        // 원하는 날짜 형식을 정의합니다. 예: "yyyy-MM-dd"
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        // 날짜를 String으로 포맷합니다.
-        String formattedDate = now.format(formatter);
-
-        user.setFolderId(folder.getAbsolutePath());
-        user.setSignupDate(formattedDate);
-
+        user.setSignupDate(Timestamp.valueOf(LocalDateTime.now()));
         user.setEmail(user.getEmail().trim());
         user.setPw(user.getPw().trim());
-
+        user.setImgCnt(0);
+        user.setImgCntMax(100);
         userRepository.save(user);
+
         return createUserResult;
     }
 

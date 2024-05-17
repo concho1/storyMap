@@ -1,5 +1,5 @@
 $(document).ready(function() {
-
+    let omeTime = 0;
     $('#uploadButton').click(function (e) {
         e.preventDefault();
         let files = $('#fileInput')[0].files;
@@ -7,6 +7,7 @@ $(document).ready(function() {
         let uploadedCount = 0;
         let ajaxCnt = 0;
         let noGPS = 0;
+
         if (totalFiles > 0) {
             $.each(files, function (i, file) {
                 let formData = new FormData();
@@ -22,6 +23,11 @@ $(document).ready(function() {
                         ajaxCnt++;
                         if(data.result === "sessionFalse"){
                             alert("세션이 만료되었습니다. 다시 로그인 해주세요!");
+                        }else if(data.result === "imgMax"){
+                            if(omeTime === 0){
+                                omeTime += 1;
+                                alert("이미지 업로드 할당량 초과");
+                            }
                         }else if(data.result === "fileEmpty"){
                             alert(uploadedCount + "번 파일이 비었습니다.!");
                         }else if (data.result === "true" || data.result === "noGPS") {
